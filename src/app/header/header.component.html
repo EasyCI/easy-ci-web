@@ -1,0 +1,26 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-dark fixed-top">
+  <div ngbDropdown class="col text-left d-inline-block">
+    <button class="btn btn-light btn-sm" id="dropdownBasic1" ngbDropdownToggle>工作流
+    </button>
+    <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+      <button class="dropdown-item">新建</button>
+      <hr>
+      <button class="dropdown-item">Another Action</button>
+      <button class="dropdown-item">Something else is here</button>
+    </div>
+  </div>
+  <div class="col text-center text-light">
+    <h4>EasyCI</h4>
+  </div>
+  <div ngbDropdown class="col text-right d-inline-block">
+    <button class="btn btn-light btn-sm" id="dropdownBasic2" ngbDropdownToggle>我的
+    </button>
+    <div ngbDropdownMenu aria-labelledby="dropdownBasic2">
+      <button class="dropdown-item">设置</button>
+      <button class="dropdown-item">帮助</button>
+      <button class="dropdown-item">关于</button>
+      <hr>
+      <button class="dropdown-item">{{title}}</button>
+    </div>
+  </div>
+</nav>

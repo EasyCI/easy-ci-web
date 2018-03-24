@@ -1,0 +1,64 @@
+<div class="jumbotron" style="margin-bottom: auto">
+  <!--注册成功提示-->
+  <div *ngIf="user != null">
+    <ngb-alert [dismissible]="false" type="success" style="text-align: center">
+      <h5>恭喜您注册成功！ 马上
+        <a href="login"><strong>去登陆</strong></a>
+      </h5>
+    </ngb-alert>
+  </div>
+  <!--注册信息错误提示-->
+  <div *ngIf="showMessage != null">
+    <ngb-alert [dismissible]="false" type="danger" style="text-align: center">
+      {{showMessage}}
+    </ngb-alert>
+  </div>
+  <div class="row" style="margin-bottom: 50px">
+    <!--左侧占位-->
+    <div class="col-1"></div>
+    <!--左侧巨幕-->
+    <div class="col-6">
+      <div class="jumbotron">
+        <br><br><br>
+        <h1 class="display-2">Hello, world!</h1>
+        <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to
+          featured
+          content or information.</p>
+        <hr class="my-4">
+        <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
+        <p class="lead">
+          <a class="btn btn-secondary btn-lg" href="#" role="button">了解更多</a>
+        </p>
+      </div>
+    </div>
+    <!--注册与登录-->
+    <div class="col-3" (keyup.enter)="register(username.value, email.value, password.value)">
+      <br><br><br><br><br><br><br>
+      <div class="input-group mb-3">
+        <span class="input-group-text">邮箱</span>
+        <input #email type="email" class="form-control" placeholder="键入你的电子邮件">
+      </div>
+      <div class="input-group mb-3">
+        <span class="input-group-text">昵称</span>
+        <input #username type="text" class="form-control" placeholder="为账户起一个昵称">
+      </div>
+      <div class="input-group mb-3">
+        <span class="input-group-text">密码</span>
+        <input #password type="password" class="form-control" placeholder="创建一个密码">
+      </div>
+      <button class="btn btn-success btn-lg" style="width: 100%"
+              (click)="register(username.value, email.value, password.value)">
+        马上注册开始 EasyCI
+      </button>
+      <hr class="my-3">
+      <a class="btn btn-outline-secondary btn-lg" style="width: 100%" href="/login">
+        已有账号？去登录
+      </a>
+    </div>
+  </div>
+  <!--页尾-->
+  <div style="text-align: center">
+    <hr>
+    Copyright © 2018 By LaoLiang. &nbsp;All Rights Reserved
+  </div>
+</div>
