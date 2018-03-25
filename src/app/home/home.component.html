@@ -1,3 +1,4 @@
+<app-header></app-header>
 <div class="jumbotron" style="margin-bottom: auto">
   <!--注册成功提示-->
   <div *ngIf="user != null">
@@ -51,9 +52,9 @@
         马上注册开始 EasyCI
       </button>
       <hr class="my-3">
-      <a class="btn btn-outline-secondary btn-lg" style="width: 100%" href="/login">
+      <button class="btn btn-outline-secondary btn-lg" style="width: 100%" routerLink="/login">
         已有账号？去登录
-      </a>
+      </button>
     </div>
   </div>
   <!--页尾-->

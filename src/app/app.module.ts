@@ -11,6 +11,8 @@ import {HomeComponent} from './home/home.component';
 import {UserService} from './service/user.service';
 import {LoginComponent} from './login/login.component';
 import {ExceptionService} from './service/exception.service';
+import {CommonService} from './service/common.service';
+import {SettingComponent} from './setting/setting.component';
 
 
 @NgModule({
@@ -18,7 +20,8 @@ import {ExceptionService} from './service/exception.service';
     AppComponent,
     HeaderComponent,
     HomeComponent,
-    LoginComponent
+    LoginComponent,
+    SettingComponent
   ],
   imports: [
     BrowserModule,
@@ -26,7 +29,7 @@ import {ExceptionService} from './service/exception.service';
     NgbModule.forRoot(),
     AppRoutingModule
   ],
-  providers: [UserService, ExceptionService],
+  providers: [UserService, ExceptionService, CommonService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

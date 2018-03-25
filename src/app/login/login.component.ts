@@ -3,6 +3,7 @@ import {UserService} from '../service/user.service';
 import {LoginResponse} from '../domain/response/login-response';
 import {AppGlobalField} from '../core/app-global-field';
 import {ExceptionService} from '../service/exception.service';
+import {CommonService} from '../service/common.service';
 
 @Component({
   selector: 'app-login',
@@ -15,10 +16,17 @@ export class LoginComponent implements OnInit {
   showMessage: string;
 
   constructor(private exceptionService: ExceptionService,
-              private userService: UserService) {
+              private userService: UserService,
+              private commonService: CommonService) {
   }
 
   ngOnInit() {
+    if (localStorage.getItem(AppGlobalField.loginResponse) != null) {
+      this.loginResponse = JSON.parse(localStorage.getItem(AppGlobalField.loginResponse));
+      this.showMessage = null;
+      // 已登录，跳转到首页
+      setTimeout(() => this.jumpTo('/'), 1000);
+    }
   }
 
   /**
@@ -39,12 +47,17 @@ export class LoginComponent implements OnInit {
     if (loginResponse.userToken != null) {
       this.loginResponse = loginResponse;
       this.showMessage = null;
-      localStorage.setItem(AppGlobalField.currentUser, JSON.stringify(loginResponse));
+      localStorage.setItem(AppGlobalField.loginResponse, JSON.stringify(loginResponse));
+      setTimeout(() => this.jumpTo('/'), 1000);
     } else if (loginResponse.error != null) {
       this.showMessage = loginResponse.message;
       this.loginResponse = null;
     } else {
       this.exceptionService.handleError(loginResponse);
     }
+  }
+
+  jumpTo(url: string): void {
+    this.commonService.jumpTo(url);
   }
 }

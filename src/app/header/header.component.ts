@@ -1,4 +1,7 @@
 import {Component, OnInit} from '@angular/core';
+import {AppGlobalField} from '../core/app-global-field';
+import {UserService} from '../service/user.service';
+import {CommonService} from '../service/common.service';
 
 @Component({
   selector: 'app-header',
@@ -7,17 +10,31 @@ import {Component, OnInit} from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor() {
+  loginOrOut: string;
+  loginResponse: string;
+
+  constructor(private userService: UserService,
+              private commonService: CommonService) {
   }
 
-  title;
-
   ngOnInit() {
-    if (localStorage.getItem('currentUser') == null) {
-      this.title = '登入';
+    if ((this.loginResponse = localStorage.getItem(AppGlobalField.loginResponse)) == null) {
+      this.loginOrOut = '登录';
     } else {
-      this.title = '登出';
+      this.loginOrOut = '退出';
     }
   }
 
+  loginOrLogOut(): void {
+    if (localStorage.getItem(AppGlobalField.loginResponse) == null) {
+      this.jumpTo('/login');
+    } else {
+      localStorage.removeItem(AppGlobalField.loginResponse);
+      this.jumpTo('/login');
+    }
+  }
+
+  jumpTo(url: string): void {
+    this.commonService.jumpTo(url);
+  }
 }

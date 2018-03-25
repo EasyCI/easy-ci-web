@@ -1,9 +1,10 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 
 @Injectable()
 export class ExceptionService {
 
-  constructor() { }
+  constructor() {
+  }
 
   /**
    * 统一处理未知错误

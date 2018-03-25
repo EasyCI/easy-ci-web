@@ -1,0 +1,46 @@
+<app-header></app-header>
+<div class="jumbotron" style="margin-bottom: auto; height: 100%; width: 100%; position: absolute" align="center">
+  <!--密码修改成功提示-->
+  <div *ngIf="user != null">
+    <ngb-alert [dismissible]="false" type="success" style="text-align: center">
+      <h5>密码修改成功，请重新登录……</h5>
+    </ngb-alert>
+  </div>
+  <!--密码修改异常提示-->
+  <div *ngIf="showMessage != null">
+    <ngb-alert [dismissible]="false" type="danger" style="text-align: center">
+      {{showMessage}}
+    </ngb-alert>
+  </div>
+  <div class="col-6">
+    <br><br>
+    <ngb-tabset>
+      <ngb-tab title="修改密码">
+        <ng-template ngbTabContent>
+          <!--用于加粗标签底线-->
+          <hr class="my-0">
+          <div class="col-6"
+               (keyup.enter)="changePassword(oldPassword.value, newPassword.value, againNewPassword.value)"
+               style="margin-top: 50px">
+            <div class="input-group mb-3">
+              <span class="input-group-text">旧密码</span>
+              <input #oldPassword type="password" class="form-control" placeholder="输入您的旧密码">
+            </div>
+            <hr>
+            <div class="input-group mb-3">
+              <span class="input-group-text">新密码</span>
+              <input #newPassword type="password" class="form-control" placeholder="输入您的新密码">
+            </div>
+            <div class="input-group mb-3">
+              <span class="input-group-text">再一次</span>
+              <input #againNewPassword type="password" class="form-control" placeholder="确认您的新密码">
+            </div>
+            <button class="btn btn-success btn-lg" style="width: 100%"
+                    (click)="changePassword(oldPassword.value, newPassword.value, againNewPassword.value)">登录
+            </button>
+          </div>
+        </ng-template>
+      </ngb-tab>
+    </ngb-tabset>
+  </div>
+</div>

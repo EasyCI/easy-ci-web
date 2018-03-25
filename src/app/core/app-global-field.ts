@@ -1,3 +1,3 @@
 export class AppGlobalField {
-  static currentUser = 'Current_User';
+  static loginResponse = 'LoginResponse';
 }
