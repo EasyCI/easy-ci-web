@@ -5,9 +5,10 @@
     <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
       <button class="dropdown-item" *ngIf="loginResponse != null">新建</button>
       <button class="dropdown-item" *ngIf="loginResponse == null" routerLink="/login">请先登录</button>
-      <hr>
-      <button class="dropdown-item">Another Action</button>
-      <button class="dropdown-item">Something else is here</button>
+      <hr *ngIf="loginResponse != null">
+      <div *ngIf="loginResponse != null">
+        <button class="dropdown-item" *ngFor="let flow of flows">{{flow.name}}</button>
+      </div>
     </div>
   </div>
   <div class="col text-center text-light">

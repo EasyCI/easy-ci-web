@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit {
       this.loginResponse = JSON.parse(localStorage.getItem(AppGlobalField.loginResponse));
       this.showMessage = null;
       // 已登录，跳转到首页
-      setTimeout(() => this.jumpTo('/'), 1000);
+      setTimeout(() => this.jumpTo('/dashboard'), 1000);
     }
   }
 
@@ -48,7 +48,7 @@ export class LoginComponent implements OnInit {
       this.loginResponse = loginResponse;
       this.showMessage = null;
       localStorage.setItem(AppGlobalField.loginResponse, JSON.stringify(loginResponse));
-      setTimeout(() => this.jumpTo('/'), 1000);
+      setTimeout(() => this.jumpTo('/dashboard'), 1000);
     } else if (loginResponse.error != null) {
       this.showMessage = loginResponse.message;
       this.loginResponse = null;

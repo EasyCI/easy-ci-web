@@ -3,6 +3,8 @@ import {Component, OnInit} from '@angular/core';
 import {UserService} from '../service/user.service';
 import {User} from '../domain/user';
 import {ExceptionService} from '../service/exception.service';
+import {AppGlobalField} from '../core/app-global-field';
+import {CommonService} from '../service/common.service';
 
 @Component({
   selector: 'app-home',
@@ -15,10 +17,15 @@ export class HomeComponent implements OnInit {
   showMessage: string;
 
   constructor(private exceptionService: ExceptionService,
-              private userService: UserService) {
+              private userService: UserService,
+              private commonService: CommonService) {
   }
 
   ngOnInit() {
+    if (localStorage.getItem(AppGlobalField.loginResponse) != null) {
+      // 已登录，跳转到首页
+      this.jumpTo('/dashboard');
+    }
   }
 
   /**
@@ -47,5 +54,9 @@ export class HomeComponent implements OnInit {
     } else {
       this.exceptionService.handleError(user);
     }
+  }
+
+  jumpTo(url: string): void {
+    this.commonService.jumpTo(url);
   }
 }
