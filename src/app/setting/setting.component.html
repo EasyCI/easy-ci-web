@@ -1,20 +1,54 @@
 <app-header></app-header>
 <div class="jumbotron" style="margin-bottom: auto; height: 100%; width: 100%; position: absolute" align="center">
+  <!--异常提示-->
+  <div *ngIf="showMessage != null">
+    <ngb-alert [dismissible]="false" type="danger" style="text-align: center">
+      {{showMessage}}
+    </ngb-alert>
+  </div>
+  <!--Github 授权提示-->
+  <div *ngIf="beginAuth != null">
+    <ngb-alert [dismissible]="false" type="primary" style="text-align: center">
+      <h5>请在新页面中完成授权……</h5><br>
+      <p style="color: red;">如果未启动新窗口，请检查是否被浏览器拦截，并点击【重试】</p>
+      <button class="btn btn-secondary" (click)="goToAuthorize()">重试</button>
+      <button class="btn btn-success" (click)="getGithubAccount()">授权完成</button>
+    </ngb-alert>
+  </div>
   <!--密码修改成功提示-->
   <div *ngIf="user != null">
     <ngb-alert [dismissible]="false" type="success" style="text-align: center">
       <h5>密码修改成功，请重新登录……</h5>
     </ngb-alert>
   </div>
-  <!--密码修改异常提示-->
-  <div *ngIf="showMessage != null">
-    <ngb-alert [dismissible]="false" type="danger" style="text-align: center">
-      {{showMessage}}
-    </ngb-alert>
-  </div>
   <div class="col-6">
     <br><br>
     <ngb-tabset>
+      <ngb-tab title="授权 Github">
+        <ng-template ngbTabContent>
+          <!--用于加粗标签底线-->
+          <hr class="my-0">
+          <div *ngIf="githubAccountResponse == null" class="col-6" style="margin-top: 50px">
+            <h4>获取访问您 GitHub 的权限</h4>
+            <hr>
+            <button class="btn btn-success btn-lg" style="width: 100%"
+                    (click)="goToAuthorize()">去授权
+            </button>
+          </div>
+          <div *ngIf="githubAccountResponse != null"
+               class="col-6" style="margin-top: 50px">
+            <h4>已授权的 Github 账户</h4>
+            <hr>
+            <div class="card" style="width: 10rem;">
+              <img class="card-img-top" [src]="githubAccountResponse.githubAccount.avatarUrl" alt="Card image cap">
+              <div class="card-body">
+                <p class="card-text"><strong>{{githubAccountResponse.githubAccount.login}}</strong></p>
+                <button class="btn btn-primary btn-sm">取消授权</button>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+      </ngb-tab>
       <ngb-tab title="修改密码">
         <ng-template ngbTabContent>
           <!--用于加粗标签底线-->

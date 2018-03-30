@@ -14,16 +14,16 @@ export class UserService {
   }
 
   register(user: User): Observable<User> {
-    const registerHeaders = {
+    const myHeaders = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       })
     };
-    return this.http.post<User>(AppConfiguration.userRegisterUrl, user, registerHeaders);
+    return this.http.post<User>(AppConfiguration.userRegisterUrl, user, myHeaders);
   }
 
   login(email: string, password: string): Observable<LoginResponse> {
-    const loginHeaders = {
+    const myHeaders = {
       headers: new HttpHeaders({
         'Content-Type': 'application/x-www-form-urlencoded'
       })
@@ -31,11 +31,11 @@ export class UserService {
     const parameters = new HttpParams()
       .append('email', email)
       .append('password', password);
-    return this.http.post<LoginResponse>(AppConfiguration.userLoginUrl, parameters, loginHeaders);
+    return this.http.post<LoginResponse>(AppConfiguration.userLoginUrl, parameters, myHeaders);
   }
 
   changePassword(oldPassword: string, newPassword: string): Observable<User> {
-    const changePasswordHeaders = {
+    const myHeaders = {
       headers: new HttpHeaders({
         'Authorization': JSON.parse(localStorage.getItem(AppGlobalField.loginResponse)).userToken,
         'Content-Type': 'application/x-www-form-urlencoded'
@@ -44,6 +44,6 @@ export class UserService {
     const parameters = new HttpParams()
       .append('oldPassword', oldPassword)
       .append('newPassword', newPassword);
-    return this.http.post<User>(AppConfiguration.userChangePasswordUrl, parameters, changePasswordHeaders);
+    return this.http.post<User>(AppConfiguration.userChangePasswordUrl, parameters, myHeaders);
   }
 }

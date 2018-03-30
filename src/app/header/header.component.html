@@ -3,7 +3,7 @@
     <button class="btn btn-light btn-sm" id="dropdownBasic1" ngbDropdownToggle>工作流
     </button>
     <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-      <button class="dropdown-item" *ngIf="loginResponse != null">新建</button>
+      <button class="dropdown-item" *ngIf="loginResponse != null" routerLink="/dashboard/create-flow">新建</button>
       <button class="dropdown-item" *ngIf="loginResponse == null" routerLink="/login">请先登录</button>
       <hr *ngIf="loginResponse != null">
       <div *ngIf="loginResponse != null">
@@ -18,9 +18,9 @@
     <button class="btn btn-light btn-sm" id="dropdownBasic2" ngbDropdownToggle>我的
     </button>
     <div ngbDropdownMenu aria-labelledby="dropdownBasic2">
-      <button class="dropdown-item" *ngIf="loginResponse != null" routerLink="/setting">设置</button>
-      <button class="dropdown-item">帮助</button>
-      <button class="dropdown-item">关于</button>
+      <a class="dropdown-item" *ngIf="loginResponse != null" routerLink="/setting">设置</a>
+      <a class="dropdown-item" href="https://github.com/EasyCI/easy-ci-doc" target="_blank">帮助</a>
+      <a class="dropdown-item" href="http://laoliang.ink/about" target="_blank">关于</a>
       <hr>
       <button class="dropdown-item" (click)="loginOrLogOut()">{{loginOrOut}}</button>
     </div>

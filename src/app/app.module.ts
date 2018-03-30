@@ -13,8 +13,10 @@ import {LoginComponent} from './login/login.component';
 import {ExceptionService} from './service/exception.service';
 import {CommonService} from './service/common.service';
 import {SettingComponent} from './setting/setting.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { FlowService } from './service/flow.service';
+import {DashboardComponent} from './dashboard/dashboard.component';
+import {FlowService} from './service/flow.service';
+import {CreateFlowComponent} from './create-flow/create-flow.component';
+import { ReposService } from './service/repos.service';
 
 
 @NgModule({
@@ -24,7 +26,8 @@ import { FlowService } from './service/flow.service';
     HomeComponent,
     LoginComponent,
     SettingComponent,
-    DashboardComponent
+    DashboardComponent,
+    CreateFlowComponent
   ],
   imports: [
     BrowserModule,
@@ -32,7 +35,7 @@ import { FlowService } from './service/flow.service';
     NgbModule.forRoot(),
     AppRoutingModule
   ],
-  providers: [UserService, ExceptionService, CommonService, FlowService],
+  providers: [UserService, ExceptionService, CommonService, FlowService, ReposService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

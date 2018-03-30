@@ -12,11 +12,11 @@ export class FlowService {
   }
 
   getAll(): Observable<Flow[]> {
-    const getAllHeaders = {
+    const myHeaders = {
       headers: new HttpHeaders({
         'Authorization': JSON.parse(localStorage.getItem(AppGlobalField.loginResponse)).userToken
       })
     };
-    return this.http.get<Flow[]>(AppConfiguration.flowGetAll, getAllHeaders);
+    return this.http.get<Flow[]>(AppConfiguration.flowGetAll, myHeaders);
   }
 }

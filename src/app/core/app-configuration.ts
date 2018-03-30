@@ -5,10 +5,10 @@ export class AppConfiguration {
   static userRegisterUrl = AppConfiguration.backendHost + '/user/register';
   static userLoginUrl = AppConfiguration.backendHost + '/user/login';
   static userChangePasswordUrl = AppConfiguration.backendHost + '/user/change_password';
-  static userGetGithubAccount = AppConfiguration.backendHost + '/user/get_github_account';
-  // RESTful API (github/*)
-  static githubGetAccessToken = AppConfiguration.backendHost + '/github/get_access_token';
-  static githubUpdateAccount = AppConfiguration.backendHost + '/github/update_account';
+  // RESTful API (repos/*)
+  static reposGetGithubAuthUrl = AppConfiguration.backendHost + '/repos/get_github_auth_url';
+  static reposGetGithubAccount = AppConfiguration.backendHost + '/repos/get_github_account';
+  static reposUpdateGithubAccount = AppConfiguration.backendHost + '/repos/update_github_account';
   // RESTful API (flow/*)
   static flowGetPlugins = AppConfiguration.backendHost + '/flow/get_plugins';
   static flowCreate = AppConfiguration.backendHost + '/flow/create';

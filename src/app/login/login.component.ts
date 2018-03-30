@@ -24,7 +24,7 @@ export class LoginComponent implements OnInit {
     if (localStorage.getItem(AppGlobalField.loginResponse) != null) {
       this.loginResponse = JSON.parse(localStorage.getItem(AppGlobalField.loginResponse));
       this.showMessage = null;
-      // 已登录，跳转到首页
+      // 已登录，跳转到控制台
       setTimeout(() => this.jumpTo('/dashboard'), 1000);
     }
   }
