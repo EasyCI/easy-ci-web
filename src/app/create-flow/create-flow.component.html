@@ -1,3 +1,148 @@
 <app-header></app-header>
-<br><br><br>
-<h1 style="text-align: center">创建 Flow</h1>
+<!--第一个 jumbotron 用于铺个底-->
+<div class="jumbotron" style="margin-bottom: auto; height: 100%; width: 100%; position: absolute"></div>
+<div class="jumbotron" style="margin-bottom: auto; height: auto; width: 100%; position: absolute" align="center">
+  <div class="col-8">
+    <br><br>
+    <ngb-tabset #t>
+      <ngb-tab id="tab-1" title="创建 Flow">
+        <ng-template ngbTabContent>
+          <!--用于加粗标签底线-->
+          <hr class="my-0">
+          <div class="col-10" style="margin-top: 30px;">
+            <p style="text-align: left"><strong>&nbsp;为你的 flow 起个名字：</strong></p>
+            <input type="text" class="form-control" placeholder="例如：Android Test">
+            <hr>
+            <p style="text-align: left"><strong>&nbsp;选择仓库源：</strong></p>
+            <div class="row col-10">
+              <input type="radio" id="github" name="repoOrigin" value="github">
+              <label for="github">
+                <img src="../../assets/img/github-logo.png" style="max-height: 50px">
+                <h5>GitHub</h5>
+              </label>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <input type="radio" id="coding" name="repoOrigin" value="coding" disabled="false">
+              <label for="coding">
+                <img src="../../assets/img/coding-logo.png" style="max-height: 50px">
+                <h5>Coding</h5>
+              </label>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <input type="radio" id="gitee" name="repoOrigin" value="gitee" disabled="false">
+              <label for="gitee">
+                <img src="../../assets/img/gitee-logo.png" style="max-height: 50px">
+                <h5>码云</h5>
+              </label>
+            </div>
+            <div style="margin-top: 20px">
+              <button class="btn btn-dark">取消创建</button>
+              <button class="btn btn-outline-primary" (click)="t.select('tab-2')">下一步</button>
+            </div>
+          </div>
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab id="tab-2" title="配置 Git 仓库">
+        <ng-template ngbTabContent>
+          <!--用于加粗标签底线-->
+          <hr class="my-0">
+          <div class="col-10" style="margin-top: 30px;">
+            <div *ngIf="githubAccountResponse == null" class="col-10" style="margin-top: 30px;">
+              <h4>尚未获取 GitHub 仓库授权，现在<a routerLink="/setting"><strong>去授权</strong></a></h4>
+            </div>
+            <div *ngIf="githubAccountResponse != null" class="col-10" style="margin-top: 30px;">
+              <p style="text-align: left"><strong>&nbsp;在下面的服务中选个一个 Git 仓库：</strong></p>
+              <div class="row" style="text-align: left">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <img style="width: 2rem; height: 2rem;" [src]="githubAccountResponse.githubAccount.avatarUrl">
+                &nbsp;&nbsp;&nbsp;
+                <h5><strong>{{githubAccountResponse.githubAccount.login}}</strong></h5>
+              </div>
+              <hr>
+              <ul class="list-group" *ngFor="let repo of githubAccountResponse.githubRepos" style="text-align: left">
+                <label for="{{repo.id}}">
+                  <li class="list-group-item">
+                    <input type="radio" id="{{repo.id}}" value="{{repo.id}}" name="repo">&nbsp;&nbsp;{{repo.login}}
+                    /
+                    {{repo.name}}
+                  </li>
+                </label>
+              </ul>
+              <br>
+              <p style="text-align: left"><strong>&nbsp;选择触发分支：</strong></p>
+              <p style="text-align: left; margin-top: -15px" class="small">&nbsp;当代码仓库收到提交请求时，EasyCI 将自动触发构建</p>
+              <hr>
+              <div *ngFor="let repo of githubAccountResponse.githubRepos">
+                <!--暂时写死一个固定的仓库Id，等找到获取radio和checkbox已选项的value时候再改过去-->
+                <div *ngIf="repo.id == 125953307" class="row">
+                  <div *ngFor="let branch of repo.branchs" style="margin-left: 20px">
+                    <input type="checkbox" id="{{branch}}" name="{{branch}}" value="{{branch}}">
+                    <label for="{{branch}}"><strong>{{branch}}</strong></label>
+                  </div>
+                </div>
+              </div>
+              <br>
+              <p style="text-align: left"><strong>&nbsp;选择项目构建平台：</strong></p>
+              <hr>
+              <div class="row">
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <input type="radio" id="android" name="platform" value="android">
+                <label for="android">&nbsp;<strong>Android</strong></label>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <input type="radio" id="ios" name="platform" value="ios" disabled="false">
+                <label for="ios">&nbsp;<strong>iOS</strong></label>
+              </div>
+              <br>
+              <p style="text-align: left"><strong>&nbsp;选择项目构建平台：</strong></p>
+              <hr>
+              <div class="row">
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <input type="radio" id="java8" name="version" value="java8">
+                <label for="java8">&nbsp;<strong>Java 8</strong></label>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <input type="radio" id="java9" name="version" value="java9" disabled="false">
+                <label for="java9">&nbsp;<strong>Java 9</strong></label>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <input type="radio" id="xcode8" name="version" value="xcode8" disabled="false">
+                <label for="xcode8">&nbsp;<strong>Xcode 8</strong></label>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <input type="radio" id="xcode9" name="version" value="xcode9" disabled="false">
+                <label for="xcode9">&nbsp;<strong>Xcode 9</strong></label>
+              </div>
+            </div>
+            <div style="margin-top: 20px">
+              <button class="btn btn-outline-primary" (click)="t.select('tab-1')">上一步</button>
+              <button class="btn btn-outline-primary" (click)="t.select('tab-3')">下一步</button>
+            </div>
+          </div>
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab id="tab-3" title="配置 Flow 插件">
+        <ng-template ngbTabContent>
+          <!--用于加粗标签底线-->
+          <hr class="my-0">
+          <div class="col-10" style="margin-top: 30px;">
+
+
+            <div style="margin-top: 20px">
+              <button class="btn btn-outline-primary" (click)="t.select('tab-2')">上一步</button>
+              <button class="btn btn-outline-primary" (click)="t.select('tab-4')">下一步</button>
+            </div>
+          </div>
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab id="tab-4" title="配置环境变量">
+        <ng-template ngbTabContent>
+          <!--用于加粗标签底线-->
+          <hr class="my-0">
+          <div class="col-10" style="margin-top: 30px;">
+
+
+            <div style="margin-top: 20px">
+              <button class="btn btn-outline-primary" (click)="t.select('tab-3')">上一步</button>
+              <button class="btn btn-primary">保存</button>
+            </div>
+          </div>
+        </ng-template>
+      </ngb-tab>
+    </ngb-tabset>
+  </div>
+</div>

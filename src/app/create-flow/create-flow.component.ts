@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {GithubAccountResponse} from '../domain/response/github-account-response';
+import {AppGlobalField} from '../core/app-global-field';
 
 @Component({
   selector: 'app-create-flow',
@@ -7,9 +9,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CreateFlowComponent implements OnInit {
 
-  constructor() { }
+  githubAccountResponse: GithubAccountResponse;
 
-  ngOnInit() {
+  constructor() {
   }
 
+  ngOnInit() {
+    if (localStorage.getItem(AppGlobalField.githubAccountResponse) != null) {
+      this.githubAccountResponse = JSON.parse(localStorage.getItem(AppGlobalField.githubAccountResponse));
+    }
+  }
 }
