@@ -2,6 +2,7 @@ import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {HttpClientModule} from '@angular/common/http';
+import {FormsModule} from '@angular/forms';
 
 
 import {AppComponent} from './app.component';
@@ -16,7 +17,7 @@ import {SettingComponent} from './setting/setting.component';
 import {DashboardComponent} from './dashboard/dashboard.component';
 import {FlowService} from './service/flow.service';
 import {CreateFlowComponent} from './create-flow/create-flow.component';
-import { ReposService } from './service/repos.service';
+import {ReposService} from './service/repos.service';
 
 
 @NgModule({
@@ -33,7 +34,8 @@ import { ReposService } from './service/repos.service';
     BrowserModule,
     HttpClientModule,
     NgbModule.forRoot(),
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule
   ],
   providers: [UserService, ExceptionService, CommonService, FlowService, ReposService],
   bootstrap: [AppComponent]

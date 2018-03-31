@@ -2,6 +2,12 @@
 <!--第一个 jumbotron 用于铺个底-->
 <div class="jumbotron" style="margin-bottom: auto; height: 100%; width: 100%; position: absolute"></div>
 <div class="jumbotron" style="margin-bottom: auto; height: auto; width: 100%; position: absolute" align="center">
+  <!--登录信息错误提示-->
+  <div *ngIf="showMessage != null">
+    <ngb-alert [dismissible]="false" type="danger" style="text-align: center">
+      {{showMessage}}
+    </ngb-alert>
+  </div>
   <div class="col-8">
     <br><br>
     <ngb-tabset #t>
@@ -75,7 +81,7 @@
                 <div *ngIf="repo.id == 125953307" class="row">
                   <div *ngFor="let branch of repo.branchs" style="margin-left: 20px">
                     <input type="checkbox" id="{{branch}}" name="{{branch}}" value="{{branch}}">
-                    <label for="{{branch}}"><strong>{{branch}}</strong></label>
+                    <label for="{{branch}}">{{branch}}</label>
                   </div>
                 </div>
               </div>
@@ -85,10 +91,10 @@
               <div class="row">
                 &nbsp;&nbsp;&nbsp;&nbsp;
                 <input type="radio" id="android" name="platform" value="android">
-                <label for="android">&nbsp;<strong>Android</strong></label>
+                <label for="android">&nbsp;Android</label>
                 &nbsp;&nbsp;&nbsp;&nbsp;
                 <input type="radio" id="ios" name="platform" value="ios" disabled="false">
-                <label for="ios">&nbsp;<strong>iOS</strong></label>
+                <label for="ios">&nbsp;iOS</label>
               </div>
               <br>
               <p style="text-align: left"><strong>&nbsp;选择项目构建平台：</strong></p>
@@ -96,16 +102,16 @@
               <div class="row">
                 &nbsp;&nbsp;&nbsp;&nbsp;
                 <input type="radio" id="java8" name="version" value="java8">
-                <label for="java8">&nbsp;<strong>Java 8</strong></label>
+                <label for="java8">&nbsp;Java 8</label>
                 &nbsp;&nbsp;&nbsp;&nbsp;
                 <input type="radio" id="java9" name="version" value="java9" disabled="false">
-                <label for="java9">&nbsp;<strong>Java 9</strong></label>
+                <label for="java9">&nbsp;Java 9</label>
                 &nbsp;&nbsp;&nbsp;&nbsp;
                 <input type="radio" id="xcode8" name="version" value="xcode8" disabled="false">
-                <label for="xcode8">&nbsp;<strong>Xcode 8</strong></label>
+                <label for="xcode8">&nbsp;Xcode 8</label>
                 &nbsp;&nbsp;&nbsp;&nbsp;
                 <input type="radio" id="xcode9" name="version" value="xcode9" disabled="false">
-                <label for="xcode9">&nbsp;<strong>Xcode 9</strong></label>
+                <label for="xcode9">&nbsp;Xcode 9</label>
               </div>
             </div>
             <div style="margin-top: 20px">
@@ -115,13 +121,38 @@
           </div>
         </ng-template>
       </ngb-tab>
-      <ngb-tab id="tab-3" title="配置 Flow 插件">
+      <ngb-tab id="tab-3" title="选择 Plugin">
         <ng-template ngbTabContent>
           <!--用于加粗标签底线-->
           <hr class="my-0">
           <div class="col-10" style="margin-top: 30px;">
-
-
+            <p style="text-align: left"><strong>&nbsp;为你的 flow 添加工作插件：</strong></p>
+            <ol class="breadcrumb">
+              <li style="line-height: 50px">O-->
+                <p class="btn btn-outline-dark">Git Clone</p>
+              </li>
+              <li style="line-height: 50px">---->
+                <p class="btn btn-outline-dark">编译</p>
+              </li>
+              <div [(ngModel)]="currentPlugins" *ngFor="let plugin of currentPlugins" ngDefaultControl>
+                <li style="line-height: 50px">---->
+                  <p class="btn btn-outline-primary">{{plugin.fullName}} &nbsp;
+                    <button class="btn btn-outline-dark" style="padding: 0px;"
+                            (click)="removeOneOnCurrentPlugins(plugin)">X
+                    </button>
+                  </p>
+                </li>
+              </div>
+            </ol>
+            <ol class="breadcrumb" style="margin-bottom: -5px">
+              <div *ngFor="let plugin of pluginsResponse.plugins">
+                <li style="line-height: 50px">&nbsp;&nbsp;
+                  <button class="btn btn-primary" (click)="addOneOnCurrentPlugins(plugin)">{{plugin.fullName}}</button>
+                </li>
+              </div>
+            </ol>
+            <hr class="my-0">
+            <p class="small">↑ 系统当前支持插件，点击添加到当前 Flow 中 ↑</p>
             <div style="margin-top: 20px">
               <button class="btn btn-outline-primary" (click)="t.select('tab-2')">上一步</button>
               <button class="btn btn-outline-primary" (click)="t.select('tab-4')">下一步</button>
