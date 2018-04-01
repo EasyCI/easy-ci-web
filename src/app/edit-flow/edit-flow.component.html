@@ -2,9 +2,9 @@
 <!--第一个 jumbotron 用于铺个底-->
 <div class="jumbotron" style="margin-bottom: auto; height: 100%; width: 100%; position: absolute"></div>
 <div class="jumbotron" style="margin-bottom: auto; height: auto; width: 100%; position: absolute" align="center">
-  <!--错误提示-->
+  <!--成功提示-->
   <div *ngIf="showMessage != null">
-    <ngb-alert [dismissible]="false" type="danger" style="text-align: center">
+    <ngb-alert [dismissible]="false" type="success" style="text-align: center">
       {{showMessage}}
     </ngb-alert>
   </div>
@@ -65,16 +65,15 @@
       </div>
       <hr class="my-0">
       <p class="small">↑ 当选择的插件需要配置环境变量时，他将显示在这里 ↑</p>
-      <!--创建Flow，Loading提示-->
-      <div *ngIf="creatingMessage != null">
-        <ngb-alert [dismissible]="false" type="warning" style="text-align: center">
-          <strong>{{creatingMessage}}</strong>
-        </ngb-alert>
+      <div style="margin-top: 40px">
+        <button class="btn btn-dark" (click)="goBack()">返回</button>
+        <button class="btn btn-success" (click)="editFlow()">保存</button>
       </div>
-      <div style="margin-top: 20px">
-        <button class="btn btn-dark" (click)="goBack()">取消</button>
-        <button class="btn btn-success" *ngIf="version != null" (click)="createFlow()">创建 Flow</button>
-      </div>
+      <br>
+      <p style="text-align: left; color: red; margin-top: 20px"><strong>&nbsp;删除当前工作流：</strong></p>
+      <p style="text-align: left; margin-top: -15px" class="small">&nbsp;这是个<strong> 危险 </strong>操作，不可恢复！</p>
+      <hr>
+      <button class="btn btn-danger">删除当前工作流</button>
     </div>
   </div>
 </div>

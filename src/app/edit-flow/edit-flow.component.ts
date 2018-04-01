@@ -7,6 +7,7 @@ import {Plugin} from '../domain/plugin';
 import {PluginsResponse} from '../domain/response/plugins-response';
 import {FlowService} from '../service/flow.service';
 import {ExceptionService} from '../service/exception.service';
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-edit-flow',
@@ -24,7 +25,8 @@ export class EditFlowComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
               private flowService: FlowService,
-              private exceptionService: ExceptionService) {
+              private exceptionService: ExceptionService,
+              private location: Location) {
   }
 
   ngOnInit() {
@@ -34,6 +36,10 @@ export class EditFlowComponent implements OnInit {
     // 获取 EasyCI 的 Plugin 列表
     this.flowService.getPlugins()
       .subscribe(result => this.handleGetPlugins(result));
+  }
+
+  editFlow(): void {
+
   }
 
   /**
@@ -74,5 +80,9 @@ export class EditFlowComponent implements OnInit {
     } else {
       this.exceptionService.handleError(pluginsResponse);
     }
+  }
+
+  goBack(): void {
+    this.location.back();
   }
 }
