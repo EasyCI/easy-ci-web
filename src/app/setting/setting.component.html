@@ -40,10 +40,10 @@
             <h4>已授权的 Github 账户</h4>
             <hr>
             <div class="card" style="width: 10rem;">
-              <img class="card-img-top" [src]="githubAccountResponse.githubAccount.avatarUrl" alt="Card image cap">
+              <img class="card-img-top" [src]="githubAccountResponse.githubAccount.avatarUrl" alt="GitHub Account Avatar">
               <div class="card-body">
                 <p class="card-text"><strong>{{githubAccountResponse.githubAccount.login}}</strong></p>
-                <button class="btn btn-primary btn-sm">取消授权</button>
+                <button class="btn btn-success btn-sm">取消授权</button>
               </div>
             </div>
           </div>
@@ -70,7 +70,7 @@
               <input #againNewPassword type="password" class="form-control" placeholder="确认您的新密码">
             </div>
             <button class="btn btn-success btn-lg" style="width: 100%"
-                    (click)="changePassword(oldPassword.value, newPassword.value, againNewPassword.value)">登录
+                    (click)="changePassword(oldPassword.value, newPassword.value, againNewPassword.value)">保存
             </button>
           </div>
         </ng-template>
