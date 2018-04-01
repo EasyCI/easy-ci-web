@@ -5,6 +5,8 @@ import {FlowService} from '../service/flow.service';
 import {ExceptionService} from '../service/exception.service';
 import {PluginsResponse} from '../domain/response/plugins-response';
 import {Plugin} from '../domain/plugin';
+import {CreateFlowRequest} from '../domain/request/create-flow-request';
+
 
 @Component({
   selector: 'app-create-flow',
@@ -16,7 +18,18 @@ export class CreateFlowComponent implements OnInit {
   showMessage: string;
   githubAccountResponse: GithubAccountResponse;
   pluginsResponse: PluginsResponse;
+
+  // html 页面中双向绑定的输入项，这些数据用于构建 Flow Entity
+  name: string;
+  repoOrigin: string;
+  repoId: number;
+  triggerPush: string[] = [];
+  platform: string;
+  version: string;
   currentPlugins: Plugin[] = [];
+  needEnv: string[] = [];
+
+  plugins: string[] = [];
 
   constructor(private flowService: FlowService,
               private exceptionService: ExceptionService) {
@@ -54,10 +67,7 @@ export class CreateFlowComponent implements OnInit {
    */
   addOneOnCurrentPlugins(plugin: Plugin): void {
     if (this.currentPlugins.indexOf(plugin) === -1) {
-      this.showMessage = null;
       this.currentPlugins.push(plugin);
-    } else {
-      this.showMessage = '该插件已选择，请选择其他插件！';
     }
   }
 
@@ -71,4 +81,72 @@ export class CreateFlowComponent implements OnInit {
     const backPlugins: Plugin[] = this.currentPlugins.slice(index + 1, this.currentPlugins.length);
     this.currentPlugins = frontPlugins.concat(backPlugins);
   }
+
+  /**
+   * 处理已选择的出发分支
+   * @param {boolean} checked
+   * @param {string} branch
+   */
+  handleCheckedBranch(checked: boolean, branch: string): void {
+    if (checked) {
+      this.triggerPush.push(branch);
+    } else {
+      const index: number = this.triggerPush.indexOf(branch);
+      const frontBranches: string[] = this.triggerPush.slice(0, index);
+      const backBranches: string[] = this.triggerPush.slice(index + 1, this.triggerPush.length);
+      this.triggerPush = frontBranches.concat(backBranches);
+    }
+  }
+
+  /**
+   * 清空已选择的出发分支
+   */
+  clearCheckedBranch(): void {
+    this.triggerPush = [];
+  }
+
+  updatePluginEnv(envName: string, envValue: string): void {
+    for (const tempPluginEnv of this.needEnv) {
+      if (tempPluginEnv.split('===')[0] === envName) {
+        const index: number = this.needEnv.indexOf(tempPluginEnv);
+        const frontPluginEnv: string[] = this.needEnv.slice(0, index);
+        const backPluginEnv: string[] = this.needEnv.slice(index + 1, this.needEnv.length);
+        this.needEnv = frontPluginEnv.concat(backPluginEnv);
+        break;
+      }
+    }
+    const pluginEnv: string = envName + '===' + envValue;
+    this.needEnv.push(pluginEnv);
+  }
+
+  createFlow(): void {
+    this.plugins = [];
+    for (const plugin of this.currentPlugins) {
+      this.plugins.push(plugin.scriptName);
+    }
+    const createFlowRequest: CreateFlowRequest = new CreateFlowRequest(
+      this.name,
+      JSON.parse(localStorage.getItem(AppGlobalField.loginResponse)).user.email,
+      this.repoOrigin,
+      this.repoId,
+      this.platform,
+      this.version,
+      this.triggerPush,
+      this.plugins,
+      this.needEnv
+    );
+
+    // console.log(createFlowRequest.name);
+    // console.log(createFlowRequest.userEmail);
+    // console.log(createFlowRequest.repoOrigin);
+    // console.log(createFlowRequest.repoId);
+    // console.log(createFlowRequest.platform);
+    // console.log(createFlowRequest.version);
+    // console.log(createFlowRequest.triggerPush);
+    // console.log(createFlowRequest.plugins);
+    // console.log(createFlowRequest.needEnv);
+
+    console.log(createFlowRequest);
+  }
+
 }
