@@ -7,7 +7,10 @@
       <button class="dropdown-item" *ngIf="loginResponse == null" routerLink="/user/login">请先登录</button>
       <hr *ngIf="loginResponse != null">
       <div *ngIf="loginResponse != null">
-        <button class="dropdown-item" *ngFor="let flow of flows">{{flow.name}}</button>
+        <button class="dropdown-item"
+                *ngFor="let flow of flows"
+                routerLink="/flow/{{flow.id}}">{{flow.name}}
+        </button>
       </div>
     </div>
   </div>

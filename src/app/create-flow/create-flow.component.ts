@@ -1,4 +1,6 @@
 import {Component, OnInit} from '@angular/core';
+import {Location} from '@angular/common';
+
 import {GithubAccountResponse} from '../domain/response/github-account-response';
 import {AppGlobalField} from '../core/app-global-field';
 import {FlowService} from '../service/flow.service';
@@ -7,7 +9,6 @@ import {PluginsResponse} from '../domain/response/plugins-response';
 import {Plugin} from '../domain/plugin';
 import {Flow} from '../domain/flow';
 import {CommonService} from '../service/common.service';
-
 
 @Component({
   selector: 'app-create-flow',
@@ -35,7 +36,8 @@ export class CreateFlowComponent implements OnInit {
 
   constructor(private flowService: FlowService,
               private exceptionService: ExceptionService,
-              private commonService: CommonService) {
+              private commonService: CommonService,
+              private location: Location) {
   }
 
   ngOnInit() {
@@ -182,6 +184,10 @@ export class CreateFlowComponent implements OnInit {
     }
     const pluginEnv: string = envName + '===' + envValue;
     this.needEnv.push(pluginEnv);
+  }
+
+  goBack(): void {
+    this.location.back();
   }
 
   jumpTo(url: string): void {

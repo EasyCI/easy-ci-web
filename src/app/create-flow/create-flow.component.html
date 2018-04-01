@@ -160,7 +160,7 @@
         </ngb-alert>
       </div>
       <div style="margin-top: 20px">
-        <button class="btn btn-dark" routerLink="/dashboard">取消</button>
+        <button class="btn btn-dark" (click)="goBack()">取消</button>
         <button class="btn btn-success" *ngIf="version != null" (click)="createFlow()">创建 Flow</button>
       </div>
     </div>

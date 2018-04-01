@@ -1,5 +1,7 @@
 <app-header></app-header>
-<div class="jumbotron" style="margin-bottom: auto; height: 100%; width: 100%; position: absolute" align="center">
+<!--第一个 jumbotron 用于铺个底-->
+<div class="jumbotron" style="margin-bottom: auto; height: 100%; width: 100%; position: absolute"></div>
+<div class="jumbotron" style="margin-bottom: auto; height: auto; width: 100%; position: absolute" align="center">
   <!--登录成功提示-->
   <div *ngIf="loginResponse != null">
     <ngb-alert [dismissible]="false" type="success" style="text-align: center">
