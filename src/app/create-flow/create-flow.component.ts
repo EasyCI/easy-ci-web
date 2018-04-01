@@ -5,7 +5,8 @@ import {FlowService} from '../service/flow.service';
 import {ExceptionService} from '../service/exception.service';
 import {PluginsResponse} from '../domain/response/plugins-response';
 import {Plugin} from '../domain/plugin';
-import {CreateFlowRequest} from '../domain/request/create-flow-request';
+import {Flow} from '../domain/flow';
+import {CommonService} from '../service/common.service';
 
 
 @Component({
@@ -16,6 +17,7 @@ import {CreateFlowRequest} from '../domain/request/create-flow-request';
 export class CreateFlowComponent implements OnInit {
 
   showMessage: string;
+  creatingMessage: string;
   githubAccountResponse: GithubAccountResponse;
   pluginsResponse: PluginsResponse;
 
@@ -32,7 +34,8 @@ export class CreateFlowComponent implements OnInit {
   plugins: string[] = [];
 
   constructor(private flowService: FlowService,
-              private exceptionService: ExceptionService) {
+              private exceptionService: ExceptionService,
+              private commonService: CommonService) {
   }
 
   ngOnInit() {
@@ -62,6 +65,63 @@ export class CreateFlowComponent implements OnInit {
   }
 
   /**
+   * 创建 Flow
+   */
+  createFlow(): void {
+    this.creatingMessage = null;
+
+    this.plugins = [];
+    for (const plugin of this.currentPlugins) {
+      this.plugins.push(plugin.scriptName);
+    }
+
+    if (this.name != null && this.name.length !== 0 &&
+      this.repoOrigin != null &&
+      this.repoId != null &&
+      this.platform != null &&
+      this.version != null) {
+      // 必填项都填好了
+      this.creatingMessage = 'Flow 创建中……';
+
+      const flow: Flow = new Flow(
+        null,
+        this.name,
+        JSON.parse(localStorage.getItem(AppGlobalField.loginResponse)).user.email,
+        this.repoOrigin,
+        this.repoId,
+        null,
+        this.platform,
+        this.version,
+        this.triggerPush,
+        this.plugins,
+        this.needEnv
+      );
+      this.flowService.create(flow)
+        .subscribe(result => this.handleCreateFlow(result));
+    } else {
+      // 还有必填项没有填写
+      this.creatingMessage = '请检查是否存在未填写完整的项目';
+    }
+
+  }
+
+  /**
+   * 处理创建 Flow
+   * @param {Flow} flow
+   */
+  handleCreateFlow(flow: Flow): void {
+    if (flow.id != null) {
+      // 这里应该跳转到新创建的flow页，暂时先这样，最终确定了路由再改
+      this.creatingMessage = '创建成功！';
+      setTimeout(() => this.jumpTo('/dashboard'), 1000);
+    } else if (flow.error != null) {
+      this.creatingMessage = flow.message;
+    } else {
+      this.exceptionService.handleError(flow);
+    }
+  }
+
+  /**
    * 在 Flow 末尾添加一个插件
    * @param {Plugin} plugin
    */
@@ -87,7 +147,7 @@ export class CreateFlowComponent implements OnInit {
    * @param {boolean} checked
    * @param {string} branch
    */
-  handleCheckedBranch(checked: boolean, branch: string): void {
+  updateCheckedBranch(checked: boolean, branch: string): void {
     if (checked) {
       this.triggerPush.push(branch);
     } else {
@@ -105,6 +165,11 @@ export class CreateFlowComponent implements OnInit {
     this.triggerPush = [];
   }
 
+  /**
+   * 处理插件环境变量输入内容
+   * @param {string} envName
+   * @param {string} envValue
+   */
   updatePluginEnv(envName: string, envValue: string): void {
     for (const tempPluginEnv of this.needEnv) {
       if (tempPluginEnv.split('===')[0] === envName) {
@@ -119,34 +184,7 @@ export class CreateFlowComponent implements OnInit {
     this.needEnv.push(pluginEnv);
   }
 
-  createFlow(): void {
-    this.plugins = [];
-    for (const plugin of this.currentPlugins) {
-      this.plugins.push(plugin.scriptName);
-    }
-    const createFlowRequest: CreateFlowRequest = new CreateFlowRequest(
-      this.name,
-      JSON.parse(localStorage.getItem(AppGlobalField.loginResponse)).user.email,
-      this.repoOrigin,
-      this.repoId,
-      this.platform,
-      this.version,
-      this.triggerPush,
-      this.plugins,
-      this.needEnv
-    );
-
-    // console.log(createFlowRequest.name);
-    // console.log(createFlowRequest.userEmail);
-    // console.log(createFlowRequest.repoOrigin);
-    // console.log(createFlowRequest.repoId);
-    // console.log(createFlowRequest.platform);
-    // console.log(createFlowRequest.version);
-    // console.log(createFlowRequest.triggerPush);
-    // console.log(createFlowRequest.plugins);
-    // console.log(createFlowRequest.needEnv);
-
-    console.log(createFlowRequest);
+  jumpTo(url: string): void {
+    this.commonService.jumpTo(url);
   }
-
 }

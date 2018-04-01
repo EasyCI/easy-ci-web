@@ -3,7 +3,7 @@
     <button class="btn btn-light btn-sm" id="dropdownBasic1" ngbDropdownToggle>工作流
     </button>
     <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-      <button class="dropdown-item" *ngIf="loginResponse != null" routerLink="/dashboard/create-flow">新建</button>
+      <button class="dropdown-item" *ngIf="loginResponse != null" routerLink="/dashboard/flow/create">新建</button>
       <button class="dropdown-item" *ngIf="loginResponse == null" routerLink="/login">请先登录</button>
       <hr *ngIf="loginResponse != null">
       <div *ngIf="loginResponse != null">

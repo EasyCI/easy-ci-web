@@ -1,5 +1,4 @@
 import {BaseEntity} from './base';
-import {PluginEnv} from './plugin-env';
 
 export class Flow extends BaseEntity {
   id: string;
@@ -12,11 +11,12 @@ export class Flow extends BaseEntity {
   version: string;
   triggerPush: string[];
   plugins: string[];
-  needEnv: PluginEnv[];
+  needEnv: string[];
 
-  constructor(id: string, name: string, userEmail: string, repoOrigin: string,
-              repoId: number, hookId: number, platform: string, version: string,
-              triggerPush: string[], plugins: string[], needEnv: PluginEnv[]) {
+  constructor(id: string, name: string, userEmail: string,
+              repoOrigin: string, repoId: number, hookId: number,
+              platform: string, version: string,
+              triggerPush: string[], plugins: string[], needEnv: string[]) {
     super();
     this.id = id;
     this.name = name;

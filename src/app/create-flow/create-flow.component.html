@@ -10,7 +10,7 @@
   </div>
   <div class="col-8">
     <br><br>
-    <div class="col-10" style="margin-top: 30px;">
+    <div class="col-10">
       <h2 style="margin-top: 30px;"><strong>① -</strong>&nbsp;创建 Flow</h2>
       <p style="text-align: left"><strong>&nbsp;为你的 flow 起个名字：</strong></p>
       <input [(ngModel)]="name" type="text" class="form-control" placeholder="例如：Android Test">
@@ -71,7 +71,7 @@
             <div *ngIf="repo.id == repoId" class="row">
               <div *ngFor="let branch of repo.branchs" style="margin-left: 20px">
                 <input type="checkbox" id="{{branch}}" value="{{branch}}"
-                       (click)="handleCheckedBranch($event.target.checked, $event.target.defaultValue)">
+                       (click)="updateCheckedBranch($event.target.checked, $event.target.defaultValue)">
                 <label for="{{branch}}">{{branch}}</label>
               </div>
             </div>
@@ -152,6 +152,12 @@
         </div>
         <hr class="my-0">
         <p class="small">↑ 当选择的插件需要配置环境变量时，他将显示在这里 ↑</p>
+      </div>
+      <!--创建Flow，Loading提示-->
+      <div *ngIf="creatingMessage != null">
+        <ngb-alert [dismissible]="false" type="warning" style="text-align: center">
+          <strong>{{creatingMessage}}</strong>
+        </ngb-alert>
       </div>
       <div style="margin-top: 20px">
         <button class="btn btn-dark" routerLink="/dashboard">取消</button>

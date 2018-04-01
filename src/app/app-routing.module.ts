@@ -11,7 +11,7 @@ const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'setting', component: SettingComponent},
   {path: 'dashboard', component: DashboardComponent},
-  {path: 'dashboard/create-flow', component: CreateFlowComponent}
+  {path: 'dashboard/flow/create', component: CreateFlowComponent}
 ];
 
 @NgModule({
