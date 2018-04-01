@@ -23,7 +23,7 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     if (localStorage.getItem(AppGlobalField.loginResponse) != null) {
-      // 已登录，跳转到控制台
+      // 已登录，跳转到仪表盘
       this.jumpTo('/dashboard');
     }
   }

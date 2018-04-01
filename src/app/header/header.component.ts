@@ -35,10 +35,10 @@ export class HeaderComponent implements OnInit {
 
   loginOrLogOut(): void {
     if (localStorage.getItem(AppGlobalField.loginResponse) == null) {
-      this.jumpTo('/login');
+      this.jumpTo('/user/login');
     } else {
       localStorage.removeItem(AppGlobalField.loginResponse);
-      this.jumpTo('/login');
+      this.jumpTo('/user/login');
     }
   }
 

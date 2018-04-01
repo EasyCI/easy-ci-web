@@ -8,10 +8,11 @@ import {CreateFlowComponent} from './create-flow/create-flow.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
-  {path: 'login', component: LoginComponent},
-  {path: 'setting', component: SettingComponent},
   {path: 'dashboard', component: DashboardComponent},
-  {path: 'dashboard/flow/create', component: CreateFlowComponent}
+  {path: 'user/register', component: HomeComponent},
+  {path: 'user/login', component: LoginComponent},
+  {path: 'user/setting', component: SettingComponent},
+  {path: 'flow/create', component: CreateFlowComponent}
 ];
 
 @NgModule({

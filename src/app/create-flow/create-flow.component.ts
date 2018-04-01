@@ -111,8 +111,8 @@ export class CreateFlowComponent implements OnInit {
    */
   handleCreateFlow(flow: Flow): void {
     if (flow.id != null) {
-      // 这里应该跳转到新创建的flow页，暂时先这样，最终确定了路由再改
       this.creatingMessage = '创建成功！';
+      // 这里应该跳转到新创建的flow页，暂时先这样，最终确定了路由再改
       setTimeout(() => this.jumpTo('/dashboard'), 1000);
     } else if (flow.error != null) {
       this.creatingMessage = flow.message;

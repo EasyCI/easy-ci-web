@@ -4,7 +4,7 @@
   <div *ngIf="user != null">
     <ngb-alert [dismissible]="false" type="success" style="text-align: center">
       <h5>恭喜您注册成功！ 马上
-        <a routerLink="/login"><strong>去登陆</strong></a>
+        <a routerLink="/user/login"><strong>去登陆</strong></a>
       </h5>
     </ngb-alert>
   </div>
@@ -52,7 +52,7 @@
         马上注册开始 EasyCI
       </button>
       <hr class="my-3">
-      <button class="btn btn-outline-secondary btn-lg" style="width: 100%" routerLink="/login">
+      <button class="btn btn-outline-secondary btn-lg" style="width: 100%" routerLink="/user/login">
         已有账号？去登录
       </button>
     </div>

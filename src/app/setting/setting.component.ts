@@ -88,7 +88,7 @@ export class SettingComponent implements OnInit {
       this.showMessage = null;
       this.githubAccountResponse = null;
       localStorage.removeItem(AppGlobalField.loginResponse);
-      setTimeout(() => this.jumpTo('/login'), 1000);
+      setTimeout(() => this.jumpTo('/user/login'), 1000);
     } else if (user.error != null) {
       this.showMessage = user.message;
       this.user = null;
