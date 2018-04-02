@@ -52,7 +52,7 @@ export class CreateFlowComponent implements OnInit {
   }
 
   /**
-   * 处理获得的 Plugin 列表数据
+   * 处理从服务器获得的 Plugin 列表数据
    * @param {Plugin[]} plugins
    */
   handleGetPlugins(pluginsResponse: PluginsResponse): void {
@@ -72,6 +72,7 @@ export class CreateFlowComponent implements OnInit {
   createFlow(): void {
     this.creatingMessage = null;
 
+    // Plugin[] 转换 string[]
     this.plugins = [];
     for (const plugin of this.currentPlugins) {
       this.plugins.push(plugin.scriptName);
@@ -161,7 +162,7 @@ export class CreateFlowComponent implements OnInit {
   }
 
   /**
-   * 清空已选择的出发分支
+   * 清空已选择的触发分支
    */
   clearCheckedBranch(): void {
     this.triggerPush = [];

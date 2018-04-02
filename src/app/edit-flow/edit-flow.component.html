@@ -2,16 +2,16 @@
 <!--第一个 jumbotron 用于铺个底-->
 <div class="jumbotron" style="margin-bottom: auto; height: 100%; width: 100%; position: absolute"></div>
 <div class="jumbotron" style="margin-bottom: auto; height: auto; width: 100%; position: absolute" align="center">
-  <!--成功提示-->
+  <!--错误提示-->
   <div *ngIf="showMessage != null">
-    <ngb-alert [dismissible]="false" type="success" style="text-align: center">
+    <ngb-alert [dismissible]="false" type="danger" style="text-align: center">
       {{showMessage}}
     </ngb-alert>
   </div>
   <div class="col-8">
     <br><br>
     <div class="col-10">
-      <p style="text-align: left; margin-top: 30px;"><strong>&nbsp;选择触发分支：</strong></p>
+      <p style="text-align: left; margin-top: 30px;"><strong>&nbsp;调整触发分支：</strong></p>
       <p style="text-align: left; margin-top: -15px" class="small">&nbsp;当代码仓库收到提交请求时，EasyCI 将自动触发构建</p>
       <hr>
       <div class="row">
@@ -21,7 +21,7 @@
           <label for="{{branch}}">{{branch}}</label>
         </div>
       </div>
-      <p style="text-align: left; margin-top: 30px"><strong>&nbsp;为 Flow 添加工作插件：</strong></p>
+      <p style="text-align: left; margin-top: 30px"><strong>&nbsp;调整 Flow 工作插件：</strong></p>
       <ol class="breadcrumb">
         <li style="line-height: 50px">O->
           <p class="btn btn-secondary">Git Clone</p>
@@ -39,7 +39,7 @@
           </li>
         </div>
       </ol>
-      <ol class="breadcrumb" style="margin-bottom: -5px;">
+      <ol *ngIf="isShowSystemAllPlugins" class="breadcrumb" style="margin-bottom: -5px;">
         <div *ngFor="let plugin of pluginsResponse.plugins">
           <li style="line-height: 50px;">&nbsp;&nbsp;
             <button class="btn btn-outline-primary" (click)="addOneOnCurrentPlugins(plugin)">{{plugin.fullName}}
@@ -47,8 +47,14 @@
           </li>
         </div>
       </ol>
-      <hr class="my-0">
-      <p class="small">↑ 系统当前支持插件，点击添加到你的 Flow 中 ↑</p>
+      <div *ngIf="isShowSystemAllPlugins">
+        <hr class="my-0">
+        <p class="small">↑ 系统当前支持插件，点击添加到你的 Flow 中 ↑</p>
+      </div>
+      <button class="btn btn-light"
+              *ngIf="!isShowSystemAllPlugins"
+              (click)="showSystemAllPlugins()">添加新的插件
+      </button>
       <br>
       <p style="text-align: left"><strong>&nbsp;配置所需的环境变量：</strong></p>
       <div *ngFor="let plugin of currentPlugins">
@@ -57,23 +63,32 @@
             <div class="input-group-prepend">
               <span class="input-group-text">{{pluginEnv.envName}}</span>
             </div>
-            <input #env type="text" class="form-control"
-                   name="{{pluginEnv.envName}}" placeholder="{{pluginEnv.envDescription}}"
+            <input #env type="input" class="form-control"
+                   id="{{pluginEnv.envName}}"
+                   name="{{pluginEnv.envName}}"
+                   placeholder="{{pluginEnv.envDescription}}"
                    (blur)="updatePluginEnv(pluginEnv.envName, env.value)">
           </div>
         </div>
       </div>
       <hr class="my-0">
       <p class="small">↑ 当选择的插件需要配置环境变量时，他将显示在这里 ↑</p>
+      <!--编辑 Flow 的提示-->
+      <div *ngIf="editingMessage != null">
+        <ngb-alert [dismissible]="false" type="warning" style="text-align: center">
+          <strong>{{editingMessage}}</strong>
+        </ngb-alert>
+      </div>
       <div style="margin-top: 40px">
         <button class="btn btn-dark" (click)="goBack()">返回</button>
         <button class="btn btn-success" (click)="editFlow()">保存</button>
       </div>
       <br>
-      <p style="text-align: left; color: red; margin-top: 20px"><strong>&nbsp;删除当前工作流：</strong></p>
-      <p style="text-align: left; margin-top: -15px" class="small">&nbsp;这是个<strong> 危险 </strong>操作，不可恢复！</p>
+      <p style="text-align: left; margin-top: 20px"><strong>&nbsp;删除当前工作流：</strong></p>
+      <p style="text-align: left; margin-top: -15px" class="small">&nbsp;这是个<strong style="color: red ;"> 危险 </strong>操作，不可恢复！
+      </p>
       <hr>
-      <button class="btn btn-danger">删除当前工作流</button>
+      <button class="btn btn-danger" (click)="deleteFlow()">删除当前工作流</button>
     </div>
   </div>
 </div>

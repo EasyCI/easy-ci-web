@@ -18,6 +18,9 @@ export class FlowTasksComponent implements OnInit {
 
   ngOnInit() {
     this.getCurrentFlow();
+    // 间隔 1 秒再更新一次本地 Flow 列表数据，
+    // 因为如果是编辑 Flow 跳转过来的话，需要读取最新数据加以展示
+    setTimeout(() => this.getCurrentFlow(), 1000);
   }
 
   /**
