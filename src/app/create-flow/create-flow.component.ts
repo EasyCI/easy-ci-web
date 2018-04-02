@@ -9,6 +9,7 @@ import {PluginsResponse} from '../domain/response/plugins-response';
 import {Plugin} from '../domain/plugin';
 import {Flow} from '../domain/flow';
 import {CommonService} from '../service/common.service';
+import {ReposService} from '../service/repos.service';
 
 @Component({
   selector: 'app-create-flow',
@@ -19,6 +20,7 @@ export class CreateFlowComponent implements OnInit {
 
   showMessage: string;
   creatingMessage: string;
+  updateGithubMessage: string;
   githubAccountResponse: GithubAccountResponse;
   pluginsResponse: PluginsResponse;
 
@@ -37,7 +39,8 @@ export class CreateFlowComponent implements OnInit {
   constructor(private flowService: FlowService,
               private exceptionService: ExceptionService,
               private commonService: CommonService,
-              private location: Location) {
+              private location: Location,
+              private reposService: ReposService) {
   }
 
   ngOnInit() {
@@ -84,7 +87,7 @@ export class CreateFlowComponent implements OnInit {
       this.platform != null &&
       this.version != null) {
       // 必填项都填好了
-      this.creatingMessage = 'Flow 创建中……';
+      this.creatingMessage = '【 Flow 创建中…… 】 此过程较慢，请耐心等待 O(∩_∩)O';
 
       const flow: Flow = new Flow(
         null,
@@ -114,7 +117,7 @@ export class CreateFlowComponent implements OnInit {
    */
   handleCreateFlow(flow: Flow): void {
     if (flow.id != null) {
-      this.creatingMessage = '创建成功！';
+      this.creatingMessage = '【 创建成功！ 】';
       setTimeout(() => this.jumpTo('/flow/' + flow.id), 1000);
     } else if (flow.error != null) {
       this.creatingMessage = '【创建 Flow 遇到错误】' + flow.message;
@@ -122,6 +125,32 @@ export class CreateFlowComponent implements OnInit {
       this.exceptionService.handleError(flow);
     }
   }
+
+  /**
+   * 更新 GibHub 仓库列表
+   */
+  updateGithubAccount(): void {
+    this.updateGithubMessage = '【 正在更新…… 】 此过程较慢，请耐心等待 O(∩_∩)O';
+    this.reposService.updateGithubAccount()
+      .subscribe(result => this.handleUpdateGithubAccount(result));
+  }
+
+  /**
+   * 处理更新 GitHub 仓库列表的操作
+   * @param {GithubAccountResponse} githubAccountResponse
+   */
+  handleUpdateGithubAccount(githubAccountResponse: GithubAccountResponse): void {
+    if (githubAccountResponse.githubAccount.login != null) {
+      localStorage.setItem(AppGlobalField.githubAccountResponse, JSON.stringify(githubAccountResponse));
+      this.githubAccountResponse = githubAccountResponse;
+      this.updateGithubMessage = '【 更新完成！ 】';
+    } else if (githubAccountResponse.error != null) {
+      this.updateGithubMessage = '【更新仓库列表遇到问题】' + githubAccountResponse.message;
+    } else {
+      this.exceptionService.handleError(githubAccountResponse);
+    }
+  }
+
 
   /**
    * 在 Flow 末尾添加一个插件

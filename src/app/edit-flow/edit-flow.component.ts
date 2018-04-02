@@ -113,7 +113,7 @@ export class EditFlowComponent implements OnInit, AfterViewInit {
    * 确认删除当前 Flow
    */
   confirmDelete(): void {
-    this.deletingMessage = '删除中……';
+    this.deletingMessage = '【 Flow 删除中…… 】 此过程较慢，请耐心等待 O(∩_∩)O';
 
     const deleteFlowRequest: DeleteFlowRequest = new DeleteFlowRequest(
       this.flow.id,
@@ -130,7 +130,7 @@ export class EditFlowComponent implements OnInit, AfterViewInit {
    */
   handleConfirmDelete(commonOkResponse: CommonOkResponse): void {
     if (commonOkResponse.code != null) {
-      this.deletingMessage = '删除成功！';
+      this.deletingMessage = '【 删除成功！ 】';
       setTimeout(() => this.jumpTo('/dashboard'), 1000);
     } else if (commonOkResponse.error != null) {
       this.deletingMessage = '【删除 Flow 遇到错误】' + commonOkResponse.message;

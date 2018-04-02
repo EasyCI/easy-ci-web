@@ -50,6 +50,6 @@ export class ReposService {
         'X-GitHub-Access-Token': JSON.parse(localStorage.getItem(AppGlobalField.githubAccountResponse)).githubAccount.accessToken
       })
     };
-    return this.http.post<GithubAccountResponse>(AppConfiguration.reposUpdateGithubAccount, myHeaders);
+    return this.http.post<GithubAccountResponse>(AppConfiguration.reposUpdateGithubAccount, null, myHeaders);
   }
 }

@@ -51,6 +51,18 @@
               &nbsp;&nbsp;&nbsp;
               <h5><strong>{{githubAccountResponse.githubAccount.login}}</strong></h5>
             </div>
+            <div align="right">
+              <button class="btn btn-light btn-sm" style="color: dodgerblue;"
+                      (click)="updateGithubAccount()">更新仓库列表
+              </button>
+            </div>
+            <!--更新仓库列表提示-->
+            <div *ngIf="updateGithubMessage != null">
+              <br>
+              <ngb-alert [dismissible]="false" type="warning" style="text-align: center">
+                {{updateGithubMessage}}
+              </ngb-alert>
+            </div>
             <hr>
             <ul class="list-group" *ngFor="let repo of githubAccountResponse.githubRepos" style="text-align: left">
               <label for="{{repo.id}}">
