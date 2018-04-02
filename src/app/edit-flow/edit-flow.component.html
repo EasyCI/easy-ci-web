@@ -88,6 +88,15 @@
       <p style="text-align: left; margin-top: -15px" class="small">&nbsp;这是个<strong style="color: red ;"> 危险 </strong>操作，不可恢复！
       </p>
       <hr>
+      <!--删除 Flow 的提示-->
+      <div *ngIf="deletingMessage != null">
+        <ngb-alert [dismissible]="false" type="danger" style="text-align: center">
+          <strong>{{deletingMessage}}</strong>
+          <hr>
+          <button class="btn btn-dark" (click)="cancelDelete()">取消</button>
+          <button class="btn btn-outline-danger" (click)="confirmDelete()">确认删除</button>
+        </ngb-alert>
+      </div>
       <button class="btn btn-danger" (click)="deleteFlow()">删除当前工作流</button>
     </div>
   </div>

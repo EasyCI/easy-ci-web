@@ -1,5 +1,5 @@
 export class AppConfiguration {
-  // 后端服务主机地址
+  // Back End Host Address
   static backendHost = 'http://localhost:8080';
   // RESTful API (user/*)
   static userRegisterUrl = AppConfiguration.backendHost + '/user/register';

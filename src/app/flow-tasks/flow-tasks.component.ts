@@ -11,15 +11,16 @@ import {AppGlobalField} from '../core/app-global-field';
 })
 export class FlowTasksComponent implements OnInit {
 
+  dataReady: boolean;
+
   flow: Flow;
 
   constructor(private route: ActivatedRoute) {
   }
 
   ngOnInit() {
-    this.getCurrentFlow();
-    // 间隔 1 秒再更新一次本地 Flow 列表数据，
-    // 因为如果是编辑 Flow 跳转过来的话，需要读取最新数据加以展示
+    this.dataReady = false;
+    // 间隔 1 秒再刷新一次本地数据，使得编辑过工作流后，能够展示最新数据
     setTimeout(() => this.getCurrentFlow(), 1000);
   }
 
@@ -34,5 +35,7 @@ export class FlowTasksComponent implements OnInit {
         break;
       }
     }
+    // 数据读取成功！
+    this.dataReady = true;
   }
 }

@@ -18,8 +18,8 @@ import {DashboardComponent} from './dashboard/dashboard.component';
 import {FlowService} from './service/flow.service';
 import {CreateFlowComponent} from './create-flow/create-flow.component';
 import {ReposService} from './service/repos.service';
-import { FlowTasksComponent } from './flow-tasks/flow-tasks.component';
-import { EditFlowComponent } from './edit-flow/edit-flow.component';
+import {FlowTasksComponent} from './flow-tasks/flow-tasks.component';
+import {EditFlowComponent} from './edit-flow/edit-flow.component';
 
 
 @NgModule({

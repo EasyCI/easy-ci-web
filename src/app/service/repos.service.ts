@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
+
 import {AppGlobalField} from '../core/app-global-field';
 import {AppConfiguration} from '../core/app-configuration';
 import {GithubAccountResponse} from '../domain/response/github-account-response';

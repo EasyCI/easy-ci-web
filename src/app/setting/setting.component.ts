@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+
 import {UserService} from '../service/user.service';
 import {User} from '../domain/user';
 import {CommonService} from '../service/common.service';
@@ -47,11 +48,18 @@ export class SettingComponent implements OnInit {
     window.open(githubAuthUrlResponse.url, '_blank');
   }
 
+  /**
+   * 获取已经授权的 GitHub 账户信息及仓库列表
+   */
   getGithubAccount(): void {
     this.reposService.getGithubAccount()
       .subscribe(result => this.handleGetGithubAccount(result));
   }
 
+  /**
+   * 处理获取到的 GitHub 账户信息及仓库列表
+   * @param {GithubAccountResponse} githubAccountResponse
+   */
   handleGetGithubAccount(githubAccountResponse: GithubAccountResponse): void {
     if (githubAccountResponse.githubAccount != null) {
       this.githubAccountResponse = githubAccountResponse;

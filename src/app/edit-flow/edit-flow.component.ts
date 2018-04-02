@@ -9,6 +9,8 @@ import {PluginsResponse} from '../domain/response/plugins-response';
 import {FlowService} from '../service/flow.service';
 import {ExceptionService} from '../service/exception.service';
 import {CommonService} from '../service/common.service';
+import {DeleteFlowRequest} from '../domain/request/delete-flow-request';
+import {CommonOkResponse} from '../domain/response/common-ok-response';
 
 @Component({
   selector: 'app-edit-flow',
@@ -19,6 +21,7 @@ export class EditFlowComponent implements OnInit, AfterViewInit {
 
   showMessage: string;
   editingMessage: string;
+  deletingMessage: string;
   isShowSystemAllPlugins: boolean;
   pluginsResponse: PluginsResponse;
 
@@ -99,8 +102,48 @@ export class EditFlowComponent implements OnInit, AfterViewInit {
     }
   }
 
+  /**
+   * 删除当前 Flow
+   */
   deleteFlow(): void {
+    this.deletingMessage = '真的要删除当前 Flow 吗？';
+  }
 
+  /**
+   * 确认删除当前 Flow
+   */
+  confirmDelete(): void {
+    this.deletingMessage = '删除中……';
+
+    const deleteFlowRequest: DeleteFlowRequest = new DeleteFlowRequest(
+      this.flow.id,
+      this.flow.hookId,
+      this.flow.repoId
+    );
+    this.flowService.delete(deleteFlowRequest)
+      .subscribe(result => this.handleConfirmDelete(result));
+  }
+
+  /**
+   * 处理确认删除 Flow
+   * @param {CommonOkResponse} commonOkResponse
+   */
+  handleConfirmDelete(commonOkResponse: CommonOkResponse): void {
+    if (commonOkResponse.code != null) {
+      this.deletingMessage = '删除成功！';
+      setTimeout(() => this.jumpTo('/dashboard'), 1000);
+    } else if (commonOkResponse.error != null) {
+      this.deletingMessage = '【删除 Flow 遇到错误】' + commonOkResponse.message;
+    } else {
+      this.exceptionService.handleError(commonOkResponse);
+    }
+  }
+
+  /**
+   * 取消删除当前 Flow
+   */
+  cancelDelete(): void {
+    this.deletingMessage = null;
   }
 
   /**
