@@ -11,7 +11,50 @@
 </head>
 
 <body>
-<app-root></app-root>
+<app-root>
+  <style>
+    html, body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      background: #dcdfe2;
+    }
+
+    div, body {
+      display: flex;
+      align-items: center; /*定义body的元素垂直居中*/
+      justify-content: center; /*定义body的里的元素水平居中*/
+    }
+
+    @keyframes dots {
+      50% {
+        transform: translateY(-.4rem);
+      }
+      100% {
+        transform: translateY(0);
+      }
+    }
+
+    .d {
+      animation: dots 1.5s ease-out infinite;
+    }
+
+    .d-2 {
+      animation-delay: .5s;
+    }
+
+    .d-3 {
+      animation-delay: 1s;
+    }
+  </style>
+  <div>
+    <h1><strong>Welcome to EasyCI</strong></h1>&nbsp;
+    <span class="d"><h1><strong>.</strong></h1></span>&nbsp;
+    <span class="d d-2"><h1><strong>.</strong></h1></span>&nbsp;
+    <span class="d d-3"><h1><strong>.</strong></h1></span>&nbsp;
+  </div>
+</app-root>
 </body>
 
 </html>
