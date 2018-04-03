@@ -11,93 +11,98 @@
   <div class="col-8">
     <br><br>
     <div class="col-10">
-      <p style="text-align: left; margin-top: 30px;"><strong>&nbsp;调整触发分支：</strong></p>
-      <p style="text-align: left; margin-top: -15px" class="small">&nbsp;当代码仓库收到提交请求时，EasyCI 将自动触发构建</p>
-      <hr>
-      <div class="row">
-        <div *ngFor="let branch of currentRepoBranches" style="margin-left: 20px">
-          <input type="checkbox" id="{{branch}}" value="{{branch}}"
-                 (click)="updateCheckedBranch($event.target.checked, $event.target.defaultValue)">
-          <label for="{{branch}}">{{branch}}</label>
-        </div>
+      <div *ngIf="githubAccountResponse == null" style="margin-top: 30px;">
+        <h4>尚未获取 GitHub 仓库授权，现在<a routerLink="/user/setting"><strong>去授权</strong></a></h4>
       </div>
-      <p style="text-align: left; margin-top: 30px"><strong>&nbsp;调整 Flow 工作插件：</strong></p>
-      <ol class="breadcrumb">
-        <li style="line-height: 50px">O->
-          <p class="btn btn-secondary">Git Clone</p>
-        </li>
-        <li style="line-height: 50px">--->
-          <p class="btn btn-secondary">编译</p>
-        </li>
-        <div *ngFor="let plugin of currentPlugins">
-          <li style="line-height: 50px">--->
-            <p class="btn btn-primary">{{plugin.fullName}} &nbsp;
-              <button class="btn btn-outline-dark btn-sm" style="padding: 0px;"
-                      (click)="removeOneOnCurrentPlugins(plugin)">X
-              </button>
-            </p>
-          </li>
-        </div>
-      </ol>
-      <ol *ngIf="isShowSystemAllPlugins" class="breadcrumb" style="margin-bottom: -5px;">
-        <div *ngFor="let plugin of pluginsResponse.plugins">
-          <li style="line-height: 50px;">&nbsp;&nbsp;
-            <button class="btn btn-outline-primary" (click)="addOneOnCurrentPlugins(plugin)">{{plugin.fullName}}
-            </button>
-          </li>
-        </div>
-      </ol>
-      <div *ngIf="isShowSystemAllPlugins">
-        <hr class="my-0">
-        <p class="small">↑ 系统当前支持插件，点击添加到你的 Flow 中 ↑</p>
-      </div>
-      <button class="btn btn-light"
-              *ngIf="!isShowSystemAllPlugins"
-              (click)="showSystemAllPlugins()">添加新的插件
-      </button>
-      <br>
-      <p style="text-align: left"><strong>&nbsp;配置所需的环境变量：</strong></p>
-      <div *ngFor="let plugin of currentPlugins">
-        <div *ngFor="let pluginEnv of plugin.needEnv">
-          <div class="input-group mb-3">
-            <div class="input-group-prepend">
-              <span class="input-group-text">{{pluginEnv.envName}}</span>
-            </div>
-            <input #env type="input" class="form-control"
-                   id="{{pluginEnv.envName}}"
-                   name="{{pluginEnv.envName}}"
-                   placeholder="{{pluginEnv.envDescription}}"
-                   (blur)="updatePluginEnv(pluginEnv.envName, env.value)">
+      <div *ngIf="githubAccountResponse != null" style="margin-top: 30px;">
+        <p style="text-align: left; margin-top: 30px;"><strong>&nbsp;调整触发分支：</strong></p>
+        <p style="text-align: left; margin-top: -15px" class="small">&nbsp;当代码仓库收到提交请求时，EasyCI 将自动触发构建</p>
+        <hr>
+        <div class="row">
+          <div *ngFor="let branch of currentRepoBranches" style="margin-left: 20px">
+            <input type="checkbox" id="{{branch}}" value="{{branch}}"
+                   (click)="updateCheckedBranch($event.target.checked, $event.target.defaultValue)">
+            <label for="{{branch}}">{{branch}}</label>
           </div>
         </div>
+        <p style="text-align: left; margin-top: 30px"><strong>&nbsp;调整 Flow 工作插件：</strong></p>
+        <ol class="breadcrumb">
+          <li style="line-height: 50px">O->
+            <p class="btn btn-secondary">Git Clone</p>
+          </li>
+          <li style="line-height: 50px">--->
+            <p class="btn btn-secondary">编译</p>
+          </li>
+          <div *ngFor="let plugin of currentPlugins">
+            <li style="line-height: 50px">--->
+              <p class="btn btn-primary">{{plugin.fullName}} &nbsp;
+                <button class="btn btn-outline-dark btn-sm" style="padding: 0px;"
+                        (click)="removeOneOnCurrentPlugins(plugin)">X
+                </button>
+              </p>
+            </li>
+          </div>
+        </ol>
+        <ol *ngIf="isShowSystemAllPlugins" class="breadcrumb" style="margin-bottom: -5px;">
+          <div *ngFor="let plugin of pluginsResponse.plugins">
+            <li style="line-height: 50px;">&nbsp;&nbsp;
+              <button class="btn btn-outline-primary" (click)="addOneOnCurrentPlugins(plugin)">{{plugin.fullName}}
+              </button>
+            </li>
+          </div>
+        </ol>
+        <div *ngIf="isShowSystemAllPlugins">
+          <hr class="my-0">
+          <p class="small">↑ 系统当前支持插件，点击添加到你的 Flow 中 ↑</p>
+        </div>
+        <button class="btn btn-light"
+                *ngIf="!isShowSystemAllPlugins"
+                (click)="showSystemAllPlugins()">添加新的插件
+        </button>
+        <br>
+        <p style="text-align: left"><strong>&nbsp;配置所需的环境变量：</strong></p>
+        <div *ngFor="let plugin of currentPlugins">
+          <div *ngFor="let pluginEnv of plugin.needEnv">
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text">{{pluginEnv.envName}}</span>
+              </div>
+              <input #env type="input" class="form-control"
+                     id="{{pluginEnv.envName}}"
+                     name="{{pluginEnv.envName}}"
+                     placeholder="{{pluginEnv.envDescription}}"
+                     (blur)="updatePluginEnv(pluginEnv.envName, env.value)">
+            </div>
+          </div>
+        </div>
+        <hr class="my-0">
+        <p class="small">↑ 当选择的插件需要配置环境变量时，他将显示在这里 ↑</p>
+        <!--编辑 Flow 的提示-->
+        <div *ngIf="editingMessage != null">
+          <ngb-alert [dismissible]="false" type="warning" style="text-align: center">
+            <strong>{{editingMessage}}</strong>
+          </ngb-alert>
+        </div>
+        <div style="margin-top: 40px">
+          <button class="btn btn-dark" (click)="goBack()">返回</button>
+          <button class="btn btn-success" (click)="editFlow()">保存</button>
+        </div>
+        <br>
+        <p style="text-align: left; margin-top: 20px"><strong>&nbsp;删除当前工作流：</strong></p>
+        <p style="text-align: left; margin-top: -15px" class="small">&nbsp;这是个<strong style="color: red ;"> 危险 </strong>操作，不可恢复！
+        </p>
+        <hr>
+        <!--删除 Flow 的提示-->
+        <div *ngIf="deletingMessage != null">
+          <ngb-alert [dismissible]="false" type="danger" style="text-align: center">
+            <strong>{{deletingMessage}}</strong>
+            <hr>
+            <button class="btn btn-dark" (click)="cancelDelete()">取消</button>
+            <button class="btn btn-outline-danger" (click)="confirmDelete()">确认删除</button>
+          </ngb-alert>
+        </div>
+        <button class="btn btn-danger" (click)="deleteFlow()">删除当前工作流</button>
       </div>
-      <hr class="my-0">
-      <p class="small">↑ 当选择的插件需要配置环境变量时，他将显示在这里 ↑</p>
-      <!--编辑 Flow 的提示-->
-      <div *ngIf="editingMessage != null">
-        <ngb-alert [dismissible]="false" type="warning" style="text-align: center">
-          <strong>{{editingMessage}}</strong>
-        </ngb-alert>
-      </div>
-      <div style="margin-top: 40px">
-        <button class="btn btn-dark" (click)="goBack()">返回</button>
-        <button class="btn btn-success" (click)="editFlow()">保存</button>
-      </div>
-      <br>
-      <p style="text-align: left; margin-top: 20px"><strong>&nbsp;删除当前工作流：</strong></p>
-      <p style="text-align: left; margin-top: -15px" class="small">&nbsp;这是个<strong style="color: red ;"> 危险 </strong>操作，不可恢复！
-      </p>
-      <hr>
-      <!--删除 Flow 的提示-->
-      <div *ngIf="deletingMessage != null">
-        <ngb-alert [dismissible]="false" type="danger" style="text-align: center">
-          <strong>{{deletingMessage}}</strong>
-          <hr>
-          <button class="btn btn-dark" (click)="cancelDelete()">取消</button>
-          <button class="btn btn-outline-danger" (click)="confirmDelete()">确认删除</button>
-        </ngb-alert>
-      </div>
-      <button class="btn btn-danger" (click)="deleteFlow()">删除当前工作流</button>
     </div>
   </div>
 </div>

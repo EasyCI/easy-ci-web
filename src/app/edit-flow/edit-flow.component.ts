@@ -11,6 +11,7 @@ import {ExceptionService} from '../service/exception.service';
 import {CommonService} from '../service/common.service';
 import {DeleteFlowRequest} from '../domain/request/delete-flow-request';
 import {CommonOkResponse} from '../domain/response/common-ok-response';
+import {GithubAccountResponse} from '../domain/response/github-account-response';
 
 @Component({
   selector: 'app-edit-flow',
@@ -24,6 +25,7 @@ export class EditFlowComponent implements OnInit, AfterViewInit {
   deletingMessage: string;
   isShowSystemAllPlugins: boolean;
   pluginsResponse: PluginsResponse;
+  githubAccountResponse: GithubAccountResponse;
 
   flow: Flow;
   currentRepoBranches: string[];
@@ -45,6 +47,11 @@ export class EditFlowComponent implements OnInit, AfterViewInit {
     // 获取 EasyCI 的 Plugin 列表
     this.flowService.getPlugins()
       .subscribe(result => this.handleGetPlugins(result));
+
+    // 判断是否已经获得 Github 授权，并标记
+    if (localStorage.getItem(AppGlobalField.githubAccountResponse) != null) {
+      this.githubAccountResponse = JSON.parse(localStorage.getItem(AppGlobalField.githubAccountResponse));
+    }
 
     // 解析当前 Flow 对象，初始化一些数据
     this.initCurrentFlow();
@@ -179,10 +186,12 @@ export class EditFlowComponent implements OnInit, AfterViewInit {
    * 获取当前 Flow 的仓库所包含的分支列表
    */
   initCurrentRepoBranches(): void {
-    for (const repo of JSON.parse(localStorage.getItem(AppGlobalField.githubAccountResponse)).githubRepos) {
-      if (repo.id === this.flow.repoId) {
-        this.currentRepoBranches = repo.branchs;
-        break;
+    if (localStorage.getItem(AppGlobalField.githubAccountResponse) != null) {
+      for (const repo of JSON.parse(localStorage.getItem(AppGlobalField.githubAccountResponse)).githubRepos) {
+        if (repo.id === this.flow.repoId) {
+          this.currentRepoBranches = repo.branchs;
+          break;
+        }
       }
     }
   }
@@ -213,13 +222,15 @@ export class EditFlowComponent implements OnInit, AfterViewInit {
    * 初始化当前选中的 TriggerPush
    */
   initCurrentCheckedTriggerPush(): void {
-    for (const branch of this.currentRepoBranches) {
-      for (const tempBranch of this.currentTriggerPush) {
-        if (branch === tempBranch) {
-          const tempElements = this.elementRef.nativeElement.querySelectorAll('input');
-          for (const currentElement of tempElements) {
-            if (currentElement.id === branch) {
-              currentElement.checked = true;
+    if (localStorage.getItem(AppGlobalField.githubAccountResponse) != null) {
+      for (const branch of this.currentRepoBranches) {
+        for (const tempBranch of this.currentTriggerPush) {
+          if (branch === tempBranch) {
+            const tempElements = this.elementRef.nativeElement.querySelectorAll('input');
+            for (const currentElement of tempElements) {
+              if (currentElement.id === branch) {
+                currentElement.checked = true;
+              }
             }
           }
         }
