@@ -22,20 +22,24 @@
     <!--左侧巨幕-->
     <div class="col-6">
       <div class="jumbotron">
-        <br><br><br>
-        <h1 class="display-2">Hello, world!</h1>
-        <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to
-          featured
-          content or information.</p>
-        <hr class="my-4">
-        <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
-        <p class="lead">
-          <a class="btn btn-secondary btn-lg" href="#" role="button">了解更多</a>
+        <br><br><br><br>
+        <h1 class="display-4">为开发人员打造</h1>
+        <ul style="margin-left: -20px; margin-top: 20px;">
+          <li>一款简易的持续集成（CI）系统</li>
+          <li>编译、测试、打包、发布、通知全流程自动化</li>
+          <li>基于强大灵活的插件系统</li>
+          <li>轻松部署属于自己的 CI 服务</li>
+        </ul>
+        <hr class="my-2">
+        <p class="small">本程序系个人毕业设计作品，线上平台仅供测试体验，个人数据可能随时被清空！<br>
+          欢迎关注国内首套开源持续集成（CI）解决方案<strong style="color: #007bff; font-size: larger;"> flow.ci </strong>
+        <p>
+          <a class="btn btn-secondary" href="https://flow.ci" target="_blank">了解更多</a>
         </p>
       </div>
     </div>
     <!--注册与登录-->
-    <div class="col-3" (keyup.enter)="register(username.value, email.value, password.value)">
+    <div class="col-4" (keyup.enter)="register(username.value, email.value, password.value)">
       <br><br><br><br><br><br><br>
       <div class="input-group mb-3">
         <span class="input-group-text">邮箱</span>
