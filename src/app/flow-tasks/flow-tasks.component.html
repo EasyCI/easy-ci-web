@@ -19,7 +19,7 @@
       <button class="btn btn-outline-primary btn-sm" id="manualBuild" ngbDropdownToggle>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;手动构建&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
       <div ngbDropdownMenu aria-labelledby="manualBuild">
         <div *ngFor="let triggerBranch of githubRepo.branchs">
-          <button class="dropdown-item">{{triggerBranch}}</button>
+          <button class="dropdown-item" (click)="taskTrigger(triggerBranch)">{{triggerBranch}}</button>
         </div>
       </div>
     </div>

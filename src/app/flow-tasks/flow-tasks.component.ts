@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 
 import {Flow} from '../domain/flow';
@@ -9,19 +9,21 @@ import {CommonOkResponse} from '../domain/response/common-ok-response';
 import {ExceptionService} from '../service/exception.service';
 import {BuildDetailResponse} from '../domain/response/build-detail-response';
 import {GithubRepo} from '../domain/github-repo';
+import Timer = NodeJS.Timer;
 
 @Component({
   selector: 'app-flow-tasks',
   templateUrl: './flow-tasks.component.html',
   styleUrls: ['./flow-tasks.component.css']
 })
-export class FlowTasksComponent implements OnInit {
+export class FlowTasksComponent implements OnInit, OnDestroy {
 
   dataReady: boolean;
   showMessage: string;
   flow: Flow;
   buildDetailResponse: BuildDetailResponse;
   githubRepo: GithubRepo;
+  intervalForTaskUpToDate: Timer;
 
   constructor(private route: ActivatedRoute,
               private taskService: TaskService,
@@ -35,6 +37,13 @@ export class FlowTasksComponent implements OnInit {
 
     // 获取当前 Flow 构建任务列表
     this.taskUpToDate();
+    // 设置一个定时器，通过间隔时间刷新当前构件列表数据
+    this.intervalForTaskUpToDate = setInterval(() => this.taskUpToDate(), 5 * 1000);
+  }
+
+  ngOnDestroy() {
+    // 销毁定时器
+    clearInterval(this.intervalForTaskUpToDate);
   }
 
   /**
@@ -78,7 +87,7 @@ export class FlowTasksComponent implements OnInit {
     if (commonOkResponse.code != null) {
       this.showMessage = null;
       // 手动触发构建成功！
-      // 这里重新请求一次最新的 buildTask 列表
+      this.taskUpToDate();
     } else if (commonOkResponse.error != null) {
       // 手动触发构建失败！
       this.showMessage = '【手动触发构建】失败！ ' + commonOkResponse.message;
@@ -111,7 +120,7 @@ export class FlowTasksComponent implements OnInit {
     }
   }
 
-  tempFunc(para: string): void{
+  tempFunc(para: string): void {
     console.log(para);
   }
 }
