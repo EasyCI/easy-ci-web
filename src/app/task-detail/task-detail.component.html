@@ -1,6 +1,16 @@
 <app-header></app-header>
 <!--第一个 jumbotron 用于铺个底-->
 <div class="jumbotron" style="margin-bottom: auto; height: 100%; width: 100%; position: absolute"></div>
-<div class="jumbotron" style="margin-bottom: auto; height: auto; width: 100%; position: absolute">
-  {{taskQueueNumber}}
+<div class="jumbotron" style="margin-bottom: auto; height: auto; width: 100%; position: absolute"
+     *ngIf="dataReady == true">
+  <!--错误提示-->
+  <div *ngIf="showMessage != null">
+    <ngb-alert [dismissible]="false" type="danger" style="text-align: center">
+      {{showMessage}}
+    </ngb-alert>
+  </div>
+  {{currentBuildDetail.queueNumber}}
+  {{currentBuildDetail.manual}}
+  {{currentBuildDetail.triggerBranch}}
+  {{currentBuildDetail.duration}}
 </div>
