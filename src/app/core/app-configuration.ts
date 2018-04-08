@@ -1,6 +1,6 @@
 export class AppConfiguration {
   // Back End Host Address
-  static backendHost = 'http://6629e695.ngrok.io';
+  static backendHost = 'http://localhost:8080';
   // RESTful API (user/*)
   static userRegisterUrl = AppConfiguration.backendHost + '/user/register';
   static userLoginUrl = AppConfiguration.backendHost + '/user/login';
@@ -15,4 +15,7 @@ export class AppConfiguration {
   static flowEdit = AppConfiguration.backendHost + '/flow/edit';
   static flowGetAll = AppConfiguration.backendHost + '/flow/get_all';
   static flowDelete = AppConfiguration.backendHost + '/flow/delete';
+  // RESTful API (task/*)
+  static taskTrigger = AppConfiguration.backendHost + '/task/trigger';
+  static taskUpToDate = AppConfiguration.backendHost + '/task/up_to_date';
 }

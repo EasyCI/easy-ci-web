@@ -27,7 +27,7 @@
 
     @keyframes dots {
       50% {
-        transform: translateY(-.4rem);
+        transform: translateY(-.9rem);
       }
       100% {
         transform: translateY(0);
@@ -35,22 +35,25 @@
     }
 
     .d {
-      animation: dots 1.5s ease-out infinite;
+      color: red;
+      animation: dots 1.2s ease-out infinite;
     }
 
     .d-2 {
-      animation-delay: .5s;
+      color: green;
+      animation-delay: .4s;
     }
 
     .d-3 {
-      animation-delay: 1s;
+      color: blue;
+      animation-delay: .8s;
     }
   </style>
   <div>
-    <h1><strong>Welcome to EasyCI</strong></h1>&nbsp;
-    <span class="d"><h1><strong>.</strong></h1></span>&nbsp;
-    <span class="d d-2"><h1><strong>.</strong></h1></span>&nbsp;
-    <span class="d d-3"><h1><strong>.</strong></h1></span>&nbsp;
+    <h1><strong>Welcome to EasyCI</strong></h1>
+    <span class="d"><h1><strong>&nbsp;.</strong></h1></span>
+    <span class="d d-2"><h1><strong>&nbsp;.</strong></h1></span>
+    <span class="d d-3"><h1><strong>&nbsp;.</strong></h1></span>
   </div>
 </app-root>
 </body>

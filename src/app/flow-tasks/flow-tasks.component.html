@@ -1,11 +1,67 @@
 <app-header></app-header>
 <!--第一个 jumbotron 用于铺个底-->
 <div class="jumbotron" style="margin-bottom: auto; height: 100%; width: 100%; position: absolute"></div>
-<div class="jumbotron" style="margin-bottom: auto; height: auto; width: 100%; position: absolute" align="center"
+<div class="jumbotron" style="margin-bottom: auto; height: auto; width: 100%; position: absolute"
      *ngIf="dataReady == true">
-
-  <h3>{{flow.name}}</h3>
-  <h3>{{flow.triggerPush}}</h3>
-  <button class="btn btn-primary" routerLink="/flow/edit/{{flow.id}}">工作流设置</button>
+  <!--错误提示-->
+  <div *ngIf="showMessage != null">
+    <ngb-alert [dismissible]="false" type="danger" style="text-align: center">
+      {{showMessage}}
+    </ngb-alert>
+  </div>
+  <div class="row" style="margin-top: 20px; margin-left: 3px;">
+    <h5 style="font-style: italic">● <u>{{flow.name}}</u></h5>
+    <button class="btn btn-light btn-sm" routerLink="/flow/{{flow.id}}/edit" style="margin-left: 30px;">工作流设置</button>
+  </div>
+  <p style="position: absolute; margin-top: 30px; margin-left: 5px;">构建列表：</p>
+  <div style="margin-top: 20px; margin-bottom: 10px; text-align: right">
+    <div ngbDropdown class="d-inline-block">
+      <button class="btn btn-outline-primary btn-sm" id="manualBuild" ngbDropdownToggle>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;手动构建&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
+      <div ngbDropdownMenu aria-labelledby="manualBuild">
+        <div *ngFor="let triggerBranch of githubRepo.branchs">
+          <button class="dropdown-item">{{triggerBranch}}</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <hr class="my-0">
+  <div *ngFor="let task of buildDetailResponse.buildDetails"
+       (click)="tempFunc(task.queueNumber)">
+    <div class="dropdown-item">
+      <div class="row">
+        <div class="col-2" style="margin-top: 30px;">
+          <div *ngIf="task.building" class="row" style="margin-left: 20px;">
+            <h5>构建中</h5>
+            <span class="d">&nbsp;.&nbsp;</span>
+            <span class="d d-2">&nbsp;.&nbsp;</span>
+            <span class="d d-3">&nbsp;.&nbsp;</span>
+          </div>
+          <div *ngIf="task.success">
+            <h5><strong style="color: limegreen;">&radic;</strong> 构建成功</h5>
+          </div>
+          <div *ngIf="task.success == false">
+            <h5><strong style="color: red;">&times;</strong> 构建失败</h5>
+          </div>
+        </div>
+        <div class="col-3" style="margin-top: 20px;">
+          <h6><strong>#{{task.queueNumber}} {{task.triggerBranch}}</strong></h6>
+          <p *ngIf="task.manual">Manual Build</p>
+          <p *ngIf="task.manual == false">Automatic Build</p>
+        </div>
+        <!--占位-->
+        <div class="col-4"></div>
+        <div class="col-3">
+          <div class="row">
+            <h1 style="margin-top: 20px; color: lightgray;">|</h1>
+            <div class="col" style="margin-top: 20px;">
+              <p>Duration &nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;{{task.duration}}</p>
+              <p style="margin-top: -10px;">Build at -&nbsp;{{task.updatedAt.substring(5, 16)}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <hr class="my-0">
+  </div>
 
 </div>

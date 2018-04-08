@@ -16,8 +16,8 @@ const routes: Routes = [
   {path: 'user/login', component: LoginComponent},
   {path: 'user/setting', component: SettingComponent},
   {path: 'flow/create', component: CreateFlowComponent},
-  {path: 'flow/edit/:flowId', component: EditFlowComponent},
-  {path: 'flow/:flowId', component: FlowTasksComponent}
+  {path: 'flow/:flowId', component: FlowTasksComponent},
+  {path: 'flow/:flowId/edit', component: EditFlowComponent}
 ];
 
 @NgModule({

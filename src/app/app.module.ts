@@ -20,6 +20,7 @@ import {CreateFlowComponent} from './create-flow/create-flow.component';
 import {ReposService} from './service/repos.service';
 import {FlowTasksComponent} from './flow-tasks/flow-tasks.component';
 import {EditFlowComponent} from './edit-flow/edit-flow.component';
+import {TaskService} from './service/task.service';
 
 
 @NgModule({
@@ -41,7 +42,7 @@ import {EditFlowComponent} from './edit-flow/edit-flow.component';
     AppRoutingModule,
     FormsModule
   ],
-  providers: [UserService, ExceptionService, CommonService, FlowService, ReposService],
+  providers: [UserService, ExceptionService, CommonService, FlowService, ReposService, TaskService],
   bootstrap: [AppComponent]
 })
 export class AppModule {
