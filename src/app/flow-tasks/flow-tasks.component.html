@@ -11,7 +11,7 @@
   </div>
   <div class="row" style="margin-top: 20px; margin-left: 3px;">
     <h5 style="font-style: italic">● <u>{{flow.name}}</u></h5>
-    <button class="btn btn-light btn-sm" routerLink="/flow/{{flow.id}}/edit" style="margin-left: 30px;">工作流设置</button>
+    <button class="btn btn-light btn-sm" routerLink="/flow/{{flow.name}}/edit" style="margin-left: 30px;">工作流设置</button>
   </div>
   <p style="position: absolute; margin-top: 30px; margin-left: 5px;">构建列表：</p>
   <div style="margin-top: 20px; margin-bottom: 10px; text-align: right">
@@ -26,7 +26,7 @@
   </div>
   <hr class="my-0">
   <div *ngFor="let task of buildDetailResponse.buildDetails"
-       (click)="tempFunc(task.queueNumber)">
+       routerLink="/flow/{{flow.name}}/task/{{task.queueNumber}}">
     <div class="dropdown-item">
       <div class="row">
         <div class="col-2" style="margin-top: 30px;">
@@ -63,5 +63,4 @@
     </div>
     <hr class="my-0">
   </div>
-
 </div>

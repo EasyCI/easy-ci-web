@@ -118,7 +118,7 @@ export class CreateFlowComponent implements OnInit {
   handleCreateFlow(flow: Flow): void {
     if (flow.id != null) {
       this.creatingMessage = '【 创建成功！ 】';
-      setTimeout(() => this.jumpTo('/flow/' + flow.id), 1000);
+      setTimeout(() => this.jumpTo('/flow/' + flow.name), 1000);
     } else if (flow.error != null) {
       this.creatingMessage = '【创建 Flow 遇到错误】' + flow.message;
     } else {

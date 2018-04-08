@@ -101,7 +101,7 @@ export class EditFlowComponent implements OnInit, AfterViewInit {
   handleEditFlow(flow: Flow): void {
     if (flow.id != null) {
       this.editingMessage = '保存成功！';
-      setTimeout(() => this.jumpTo('/flow/' + flow.id), 1000);
+      setTimeout(() => this.jumpTo('/flow/' + flow.name), 1000);
     } else if (flow.error != null) {
       this.showMessage = '【编辑 Flow 遇到错误】' + flow.message;
     } else {
@@ -173,9 +173,9 @@ export class EditFlowComponent implements OnInit, AfterViewInit {
    * 通过路由中的 flowId 得到当前选中的 Flow 信息
    */
   initCurrentFlow(): void {
-    const flowId: string = this.route.snapshot.paramMap.get('flowId');
+    const flowName: string = this.route.snapshot.paramMap.get('flowName');
     for (const tempFlow of JSON.parse(localStorage.getItem(AppGlobalField.flows))) {
-      if (tempFlow.id === flowId) {
+      if (tempFlow.name === flowName) {
         this.flow = tempFlow;
         break;
       }

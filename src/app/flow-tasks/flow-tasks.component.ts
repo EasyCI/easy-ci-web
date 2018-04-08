@@ -33,10 +33,9 @@ export class FlowTasksComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.dataReady = false;
     // 间隔 1 秒再刷新一次本地数据，使得编辑过工作流后，能够展示最新数据
-    setTimeout(() => this.getCurrentFlowAndRepo(), 1000);
+    setTimeout(() => this.getCurrentFlowAndRepo(), 200);
+    setTimeout(() => this.taskUpToDate(), 250);
 
-    // 获取当前 Flow 构建任务列表
-    this.taskUpToDate();
     // 设置一个定时器，通过间隔时间刷新当前构件列表数据
     this.intervalForTaskUpToDate = setInterval(() => this.taskUpToDate(), 5 * 1000);
   }
@@ -47,18 +46,16 @@ export class FlowTasksComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * 通过路由中的 flowId 得到当前选中的 Flow 信息
+   * 通过路由中的 flowName 得到当前选中的 Flow 信息
    */
   getCurrentFlowAndRepo(): void {
-    const flowId: string = this.route.snapshot.paramMap.get('flowId');
+    const flowName: string = this.route.snapshot.paramMap.get('flowName');
     for (const tempFlow of JSON.parse(localStorage.getItem(AppGlobalField.flows))) {
-      if (tempFlow.id === flowId) {
+      if (tempFlow.name === flowName) {
         this.flow = tempFlow;
         break;
       }
     }
-    // 数据读取成功！
-    this.dataReady = true;
 
     // 获取当前 Flow 对应的原仓库信息
     for (const tempGithubRepo of JSON.parse(localStorage.getItem(AppGlobalField.githubAccountResponse)).githubRepos) {
@@ -74,8 +71,7 @@ export class FlowTasksComponent implements OnInit, OnDestroy {
    */
   taskTrigger(triggerBranch: string): void {
     const githubHookRequest: GithubHookRequest = new GithubHookRequest(null, true, triggerBranch);
-    const flowId: string = this.route.snapshot.paramMap.get('flowId');
-    this.taskService.trigger(githubHookRequest, flowId)
+    this.taskService.trigger(githubHookRequest, this.flow.id)
       .subscribe(result => this.handleTaskTrigger(result));
   }
 
@@ -100,8 +96,7 @@ export class FlowTasksComponent implements OnInit, OnDestroy {
    * 获取当前 Flow 最新任务构建列表（倒序）
    */
   taskUpToDate(): void {
-    const flowId: string = this.route.snapshot.paramMap.get('flowId');
-    this.taskService.upToDate(flowId)
+    this.taskService.upToDate(this.flow.id)
       .subscribe(result => this.handleTaskUpToDate(result));
   }
 
@@ -113,14 +108,12 @@ export class FlowTasksComponent implements OnInit, OnDestroy {
     if (buildDetailResponse.buildDetails != null) {
       this.buildDetailResponse = buildDetailResponse;
       localStorage.setItem(AppGlobalField.buildDetailResponse, JSON.stringify(buildDetailResponse));
+      // 数据读取成功！
+      this.dataReady = true;
     } else if (buildDetailResponse.error != null) {
       this.showMessage = '【 Flow 最新构建列表】获取失败！ ' + buildDetailResponse.message;
     } else {
       this.exceptionService.handleError(buildDetailResponse);
     }
-  }
-
-  tempFunc(para: string): void {
-    console.log(para);
   }
 }

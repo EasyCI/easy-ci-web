@@ -8,6 +8,7 @@ import {DashboardComponent} from './dashboard/dashboard.component';
 import {CreateFlowComponent} from './create-flow/create-flow.component';
 import {FlowTasksComponent} from './flow-tasks/flow-tasks.component';
 import {EditFlowComponent} from './edit-flow/edit-flow.component';
+import {TaskDetailComponent} from './task-detail/task-detail.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
@@ -16,8 +17,9 @@ const routes: Routes = [
   {path: 'user/login', component: LoginComponent},
   {path: 'user/setting', component: SettingComponent},
   {path: 'flow/create', component: CreateFlowComponent},
-  {path: 'flow/:flowId', component: FlowTasksComponent},
-  {path: 'flow/:flowId/edit', component: EditFlowComponent}
+  {path: 'flow/:flowName', component: FlowTasksComponent},
+  {path: 'flow/:flowName/edit', component: EditFlowComponent},
+  {path: 'flow/:flowName/task/:taskQueueNumber', component: TaskDetailComponent}
 ];
 
 @NgModule({
