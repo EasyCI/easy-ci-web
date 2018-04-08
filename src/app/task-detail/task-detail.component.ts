@@ -15,9 +15,10 @@ import Timer = NodeJS.Timer;
 })
 export class TaskDetailComponent implements OnInit, OnDestroy {
 
-  showMessage: string;
   dataReady: boolean;
+  showMessage: string;
   currentBuildDetail: BuildDetail;
+  flowName: string;
   intervalUpdateBuildDetail: Timer;
 
   constructor(private route: ActivatedRoute,
@@ -28,6 +29,8 @@ export class TaskDetailComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.dataReady = false;
     this.getCurrentTaskBuildDetail();
+
+    this.flowName = this.route.snapshot.paramMap.get('flowName');
 
     // 如果当前任务正在构建中，则启动一个定时器定时更新最新构建数据
     if (this.currentBuildDetail.building) {

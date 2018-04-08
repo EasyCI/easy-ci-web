@@ -1,6 +1,6 @@
 export class AppConfiguration {
   // Back End Host Address
-  static backendHost = 'http://localhost:8080';
+  static backendHost = 'http://6629e695.ngrok.io';
   // RESTful API (user/*)
   static userRegisterUrl = AppConfiguration.backendHost + '/user/register';
   static userLoginUrl = AppConfiguration.backendHost + '/user/login';
