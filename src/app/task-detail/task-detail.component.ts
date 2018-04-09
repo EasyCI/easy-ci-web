@@ -2,10 +2,10 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 
 import {AppGlobalField} from '../core/app-global-field';
-import {BuildDetail} from '../domain/build-detail';
-import {TaskService} from '../service/task.service';
-import {BuildDetailResponse} from '../domain/response/build-detail-response';
-import {ExceptionService} from '../service/exception.service';
+import {BuildDetail} from '../core/domain/build-detail';
+import {TaskService} from '../core/service/task.service';
+import {BuildDetailResponse} from '../core/domain/response/build-detail-response';
+import {ExceptionService} from '../core/service/exception.service';
 import Timer = NodeJS.Timer;
 
 @Component({

@@ -3,8 +3,8 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
 
 import {Flow} from '../domain/flow';
-import {AppGlobalField} from '../core/app-global-field';
-import {AppConfiguration} from '../core/app-configuration';
+import {AppGlobalField} from '../app-global-field';
+import {AppConfiguration} from '../app-configuration';
 import {PluginsResponse} from '../domain/response/plugins-response';
 import {DeleteFlowRequest} from '../domain/request/delete-flow-request';
 import {CommonOkResponse} from '../domain/response/common-ok-response';

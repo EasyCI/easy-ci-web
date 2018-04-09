@@ -4,8 +4,8 @@ import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 
 import {User} from '../domain/user';
 import {LoginResponse} from '../domain/response/login-response';
-import {AppConfiguration} from '../core/app-configuration';
-import {AppGlobalField} from '../core/app-global-field';
+import {AppConfiguration} from '../app-configuration';
+import {AppGlobalField} from '../app-global-field';
 
 @Injectable()
 export class UserService {

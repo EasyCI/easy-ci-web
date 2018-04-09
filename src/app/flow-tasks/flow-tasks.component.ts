@@ -1,16 +1,16 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 
-import {Flow} from '../domain/flow';
+import {Flow} from '../core/domain/flow';
 import {AppGlobalField} from '../core/app-global-field';
-import {GithubHookRequest} from '../domain/request/github-hook-request';
-import {TaskService} from '../service/task.service';
-import {CommonOkResponse} from '../domain/response/common-ok-response';
-import {ExceptionService} from '../service/exception.service';
-import {BuildDetailResponse} from '../domain/response/build-detail-response';
-import {GithubRepo} from '../domain/github-repo';
-import {ReposService} from '../service/repos.service';
-import {GithubAccountResponse} from '../domain/response/github-account-response';
+import {GithubHookRequest} from '../core/domain/request/github-hook-request';
+import {TaskService} from '../core/service/task.service';
+import {CommonOkResponse} from '../core/domain/response/common-ok-response';
+import {ExceptionService} from '../core/service/exception.service';
+import {BuildDetailResponse} from '../core/domain/response/build-detail-response';
+import {GithubRepo} from '../core/domain/github-repo';
+import {ReposService} from '../core/service/repos.service';
+import {GithubAccountResponse} from '../core/domain/response/github-account-response';
 import Timer = NodeJS.Timer;
 
 @Component({

@@ -1,15 +1,15 @@
 import {Component, OnInit} from '@angular/core';
 import {Location} from '@angular/common';
 
-import {GithubAccountResponse} from '../domain/response/github-account-response';
+import {GithubAccountResponse} from '../core/domain/response/github-account-response';
 import {AppGlobalField} from '../core/app-global-field';
-import {FlowService} from '../service/flow.service';
-import {ExceptionService} from '../service/exception.service';
-import {PluginsResponse} from '../domain/response/plugins-response';
-import {Plugin} from '../domain/plugin';
-import {Flow} from '../domain/flow';
-import {CommonService} from '../service/common.service';
-import {ReposService} from '../service/repos.service';
+import {FlowService} from '../core/service/flow.service';
+import {ExceptionService} from '../core/service/exception.service';
+import {PluginsResponse} from '../core/domain/response/plugins-response';
+import {Plugin} from '../core/domain/plugin';
+import {Flow} from '../core/domain/flow';
+import {CommonService} from '../core/service/common.service';
+import {ReposService} from '../core/service/repos.service';
 
 @Component({
   selector: 'app-create-flow',

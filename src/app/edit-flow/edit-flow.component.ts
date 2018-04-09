@@ -2,16 +2,16 @@ import {AfterViewInit, Component, ElementRef, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {Location} from '@angular/common';
 
-import {Flow} from '../domain/flow';
+import {Flow} from '../core/domain/flow';
 import {AppGlobalField} from '../core/app-global-field';
-import {Plugin} from '../domain/plugin';
-import {PluginsResponse} from '../domain/response/plugins-response';
-import {FlowService} from '../service/flow.service';
-import {ExceptionService} from '../service/exception.service';
-import {CommonService} from '../service/common.service';
-import {DeleteFlowRequest} from '../domain/request/delete-flow-request';
-import {CommonOkResponse} from '../domain/response/common-ok-response';
-import {GithubAccountResponse} from '../domain/response/github-account-response';
+import {Plugin} from '../core/domain/plugin';
+import {PluginsResponse} from '../core/domain/response/plugins-response';
+import {FlowService} from '../core/service/flow.service';
+import {ExceptionService} from '../core/service/exception.service';
+import {CommonService} from '../core/service/common.service';
+import {DeleteFlowRequest} from '../core/domain/request/delete-flow-request';
+import {CommonOkResponse} from '../core/domain/response/common-ok-response';
+import {GithubAccountResponse} from '../core/domain/response/github-account-response';
 
 @Component({
   selector: 'app-edit-flow',

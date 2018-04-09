@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 
-import {UserService} from '../service/user.service';
-import {User} from '../domain/user';
-import {ExceptionService} from '../service/exception.service';
+import {UserService} from '../core/service/user.service';
+import {User} from '../core/domain/user';
+import {ExceptionService} from '../core/service/exception.service';
 import {AppGlobalField} from '../core/app-global-field';
-import {CommonService} from '../service/common.service';
+import {CommonService} from '../core/service/common.service';
 
 @Component({
   selector: 'app-home',

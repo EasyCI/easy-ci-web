@@ -1,9 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {UserService} from '../service/user.service';
-import {LoginResponse} from '../domain/response/login-response';
+
+import {UserService} from '../core/service/user.service';
+import {LoginResponse} from '../core/domain/response/login-response';
 import {AppGlobalField} from '../core/app-global-field';
-import {ExceptionService} from '../service/exception.service';
-import {CommonService} from '../service/common.service';
+import {ExceptionService} from '../core/service/exception.service';
+import {CommonService} from '../core/service/common.service';
 
 @Component({
   selector: 'app-login',

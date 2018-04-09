@@ -1,9 +1,10 @@
 import {Component, OnInit} from '@angular/core';
+
 import {AppGlobalField} from '../core/app-global-field';
-import {UserService} from '../service/user.service';
-import {CommonService} from '../service/common.service';
-import {FlowService} from '../service/flow.service';
-import {Flow} from '../domain/flow';
+import {UserService} from '../core/service/user.service';
+import {CommonService} from '../core/service/common.service';
+import {FlowService} from '../core/service/flow.service';
+import {Flow} from '../core/domain/flow';
 
 @Component({
   selector: 'app-header',

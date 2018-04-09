@@ -1,13 +1,13 @@
 import {Component, OnInit} from '@angular/core';
 
-import {UserService} from '../service/user.service';
-import {User} from '../domain/user';
-import {CommonService} from '../service/common.service';
-import {ExceptionService} from '../service/exception.service';
+import {UserService} from '../core/service/user.service';
+import {User} from '../core/domain/user';
+import {CommonService} from '../core/service/common.service';
+import {ExceptionService} from '../core/service/exception.service';
 import {AppGlobalField} from '../core/app-global-field';
-import {GithubAccountResponse} from '../domain/response/github-account-response';
-import {ReposService} from '../service/repos.service';
-import {GithubAuthUrlResponse} from '../domain/response/github-auth-url-response';
+import {GithubAccountResponse} from '../core/domain/response/github-account-response';
+import {ReposService} from '../core/service/repos.service';
+import {GithubAuthUrlResponse} from '../core/domain/response/github-auth-url-response';
 
 @Component({
   selector: 'app-setting',

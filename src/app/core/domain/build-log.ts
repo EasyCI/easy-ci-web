@@ -1,4 +1,4 @@
-export class BuildLog{
+export class BuildLog {
   stepName: string;
   complete: boolean;
   logContent: string;

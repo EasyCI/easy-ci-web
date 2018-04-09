@@ -1,11 +1,12 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {GithubHookRequest} from '../domain/request/github-hook-request';
 import {Observable} from 'rxjs/Observable';
+
+import {GithubHookRequest} from '../domain/request/github-hook-request';
 import {CommonOkResponse} from '../domain/response/common-ok-response';
-import {AppConfiguration} from '../core/app-configuration';
+import {AppConfiguration} from '../app-configuration';
 import {BuildDetailResponse} from '../domain/response/build-detail-response';
-import {AppGlobalField} from '../core/app-global-field';
+import {AppGlobalField} from '../app-global-field';
 
 @Injectable()
 export class TaskService {
