@@ -4,7 +4,7 @@ import {Observable} from 'rxjs/Observable';
 
 import {Flow} from '../domain/flow';
 import {AppGlobalField} from '../app-global-field';
-import {AppConfiguration} from '../app-configuration';
+import {AppBackEndApi} from '../app-back-end-api';
 import {PluginsResponse} from '../domain/response/plugins-response';
 import {DeleteFlowRequest} from '../domain/request/delete-flow-request';
 import {CommonOkResponse} from '../domain/response/common-ok-response';
@@ -25,7 +25,7 @@ export class FlowService {
         'Authorization': JSON.parse(localStorage.getItem(AppGlobalField.loginResponse)).userToken
       })
     };
-    return this.http.get<PluginsResponse>(AppConfiguration.flowGetPlugins, myHeaders);
+    return this.http.get<PluginsResponse>(AppBackEndApi.flowGetPlugins, myHeaders);
   }
 
   /**
@@ -41,7 +41,7 @@ export class FlowService {
         'Content-Type': 'application/json'
       })
     };
-    return this.http.post<Flow>(AppConfiguration.flowCreate, flow, myHeaders);
+    return this.http.post<Flow>(AppBackEndApi.flowCreate, flow, myHeaders);
   }
 
   /**
@@ -56,7 +56,7 @@ export class FlowService {
         'Content-Type': 'application/json'
       })
     };
-    return this.http.post<Flow>(AppConfiguration.flowEdit, flow, myHeaders);
+    return this.http.post<Flow>(AppBackEndApi.flowEdit, flow, myHeaders);
   }
 
   /**
@@ -69,7 +69,7 @@ export class FlowService {
         'Authorization': JSON.parse(localStorage.getItem(AppGlobalField.loginResponse)).userToken
       })
     };
-    return this.http.get<Flow[]>(AppConfiguration.flowGetAll, myHeaders);
+    return this.http.get<Flow[]>(AppBackEndApi.flowGetAll, myHeaders);
   }
 
   /**
@@ -85,6 +85,6 @@ export class FlowService {
         'Content-Type': 'application/json'
       })
     };
-    return this.http.post<CommonOkResponse>(AppConfiguration.flowDelete, deleteFlowRequest, myHeaders);
+    return this.http.post<CommonOkResponse>(AppBackEndApi.flowDelete, deleteFlowRequest, myHeaders);
   }
 }

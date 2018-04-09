@@ -4,7 +4,7 @@ import {Observable} from 'rxjs/Observable';
 
 import {GithubHookRequest} from '../domain/request/github-hook-request';
 import {CommonOkResponse} from '../domain/response/common-ok-response';
-import {AppConfiguration} from '../app-configuration';
+import {AppBackEndApi} from '../app-back-end-api';
 import {BuildDetailResponse} from '../domain/response/build-detail-response';
 import {AppGlobalField} from '../app-global-field';
 
@@ -26,7 +26,7 @@ export class TaskService {
         'Content-Type': 'application/json'
       })
     };
-    return this.http.post<CommonOkResponse>(AppConfiguration.taskTrigger + '/' + flowId, githubHookRequest, myHeaders);
+    return this.http.post<CommonOkResponse>(AppBackEndApi.taskTrigger + '/' + flowId, githubHookRequest, myHeaders);
   }
 
   /**
@@ -40,6 +40,6 @@ export class TaskService {
         'Authorization': JSON.parse(localStorage.getItem(AppGlobalField.loginResponse)).userToken
       })
     };
-    return this.http.get<BuildDetailResponse>(AppConfiguration.taskUpToDate + '/' + flowId, myHeaders);
+    return this.http.get<BuildDetailResponse>(AppBackEndApi.taskUpToDate + '/' + flowId, myHeaders);
   }
 }

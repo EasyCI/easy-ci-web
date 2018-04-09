@@ -4,7 +4,7 @@ import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 
 import {User} from '../domain/user';
 import {LoginResponse} from '../domain/response/login-response';
-import {AppConfiguration} from '../app-configuration';
+import {AppBackEndApi} from '../app-back-end-api';
 import {AppGlobalField} from '../app-global-field';
 
 @Injectable()
@@ -19,7 +19,7 @@ export class UserService {
         'Content-Type': 'application/json'
       })
     };
-    return this.http.post<User>(AppConfiguration.userRegisterUrl, user, myHeaders);
+    return this.http.post<User>(AppBackEndApi.userRegisterUrl, user, myHeaders);
   }
 
   login(email: string, password: string): Observable<LoginResponse> {
@@ -31,7 +31,7 @@ export class UserService {
     const parameters = new HttpParams()
       .append('email', email)
       .append('password', password);
-    return this.http.post<LoginResponse>(AppConfiguration.userLoginUrl, parameters, myHeaders);
+    return this.http.post<LoginResponse>(AppBackEndApi.userLoginUrl, parameters, myHeaders);
   }
 
   changePassword(oldPassword: string, newPassword: string): Observable<User> {
@@ -44,6 +44,6 @@ export class UserService {
     const parameters = new HttpParams()
       .append('oldPassword', oldPassword)
       .append('newPassword', newPassword);
-    return this.http.post<User>(AppConfiguration.userChangePasswordUrl, parameters, myHeaders);
+    return this.http.post<User>(AppBackEndApi.userChangePasswordUrl, parameters, myHeaders);
   }
 }

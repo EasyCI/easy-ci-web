@@ -3,7 +3,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
 
 import {AppGlobalField} from '../app-global-field';
-import {AppConfiguration} from '../app-configuration';
+import {AppBackEndApi} from '../app-back-end-api';
 import {GithubAccountResponse} from '../domain/response/github-account-response';
 import {GithubAuthUrlResponse} from '../domain/response/github-auth-url-response';
 
@@ -23,7 +23,7 @@ export class ReposService {
         'Authorization': JSON.parse(localStorage.getItem(AppGlobalField.loginResponse)).userToken
       })
     };
-    return this.http.get<GithubAuthUrlResponse>(AppConfiguration.reposGetGithubAuthUrl, myHeaders);
+    return this.http.get<GithubAuthUrlResponse>(AppBackEndApi.reposGetGithubAuthUrl, myHeaders);
   }
 
   /**
@@ -36,7 +36,7 @@ export class ReposService {
         'Authorization': JSON.parse(localStorage.getItem(AppGlobalField.loginResponse)).userToken
       })
     };
-    return this.http.get<GithubAccountResponse>(AppConfiguration.reposGetGithubAccount, myHeaders);
+    return this.http.get<GithubAccountResponse>(AppBackEndApi.reposGetGithubAccount, myHeaders);
   }
 
   /**
@@ -50,6 +50,6 @@ export class ReposService {
         'X-GitHub-Access-Token': JSON.parse(localStorage.getItem(AppGlobalField.githubAccountResponse)).githubAccount.accessToken
       })
     };
-    return this.http.post<GithubAccountResponse>(AppConfiguration.reposUpdateGithubAccount, null, myHeaders);
+    return this.http.post<GithubAccountResponse>(AppBackEndApi.reposUpdateGithubAccount, null, myHeaders);
   }
 }
