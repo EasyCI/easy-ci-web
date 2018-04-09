@@ -9,6 +9,8 @@ import {CommonOkResponse} from '../domain/response/common-ok-response';
 import {ExceptionService} from '../service/exception.service';
 import {BuildDetailResponse} from '../domain/response/build-detail-response';
 import {GithubRepo} from '../domain/github-repo';
+import {ReposService} from '../service/repos.service';
+import {GithubAccountResponse} from '../domain/response/github-account-response';
 import Timer = NodeJS.Timer;
 
 @Component({
@@ -27,7 +29,8 @@ export class FlowTasksComponent implements OnInit, OnDestroy {
 
   constructor(private route: ActivatedRoute,
               private taskService: TaskService,
-              private exceptionService: ExceptionService) {
+              private exceptionService: ExceptionService,
+              private reposService: ReposService) {
   }
 
   ngOnInit() {
@@ -58,9 +61,29 @@ export class FlowTasksComponent implements OnInit, OnDestroy {
     }
 
     // 获取当前 Flow 对应的原仓库信息
-    for (const tempGithubRepo of JSON.parse(localStorage.getItem(AppGlobalField.githubAccountResponse)).githubRepos) {
-      if (tempGithubRepo.id === this.flow.repoId) {
-        this.githubRepo = tempGithubRepo;
+    if (localStorage.getItem(AppGlobalField.githubAccountResponse) == null) {
+      this.reposService.getGithubAccount()
+        .subscribe(result => this.handleGetGithubAccount(result));
+    } else {
+      for (const tempGithubRepo of JSON.parse(localStorage.getItem(AppGlobalField.githubAccountResponse)).githubRepos) {
+        if (tempGithubRepo.id === this.flow.repoId) {
+          this.githubRepo = tempGithubRepo;
+        }
+      }
+    }
+  }
+
+  /**
+   * 处理获取当前 GitHubAccount 并更新当前 githubRepo
+   * @param {GithubAccountResponse} githubAccountResponse
+   */
+  private handleGetGithubAccount(githubAccountResponse: GithubAccountResponse): void {
+    if (githubAccountResponse.githubAccount != null) {
+      localStorage.setItem(AppGlobalField.githubAccountResponse, JSON.stringify(githubAccountResponse));
+      for (const tempGithubRepo of githubAccountResponse.githubRepos) {
+        if (tempGithubRepo.id === this.flow.repoId) {
+          this.githubRepo = tempGithubRepo;
+        }
       }
     }
   }
