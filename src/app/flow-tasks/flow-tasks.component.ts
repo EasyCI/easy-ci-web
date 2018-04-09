@@ -51,7 +51,7 @@ export class FlowTasksComponent implements OnInit, OnDestroy {
   /**
    * 通过路由中的 flowName 得到当前选中的 Flow 信息
    */
-  getCurrentFlowAndRepo(): void {
+  private getCurrentFlowAndRepo(): void {
     const flowName: string = this.route.snapshot.paramMap.get('flowName');
     for (const tempFlow of JSON.parse(localStorage.getItem(AppGlobalField.flows))) {
       if (tempFlow.name === flowName) {
@@ -118,7 +118,7 @@ export class FlowTasksComponent implements OnInit, OnDestroy {
   /**
    * 获取当前 Flow 最新任务构建列表（倒序）
    */
-  taskUpToDate(): void {
+  private taskUpToDate(): void {
     this.taskService.upToDate(this.flow.id)
       .subscribe(result => this.handleTaskUpToDate(result));
   }

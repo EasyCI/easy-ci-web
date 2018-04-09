@@ -98,7 +98,7 @@ export class EditFlowComponent implements OnInit, AfterViewInit {
    * 处理编辑 Flow
    * @param {Flow} flow
    */
-  handleEditFlow(flow: Flow): void {
+  private handleEditFlow(flow: Flow): void {
     if (flow.id != null) {
       this.editingMessage = '保存成功！';
       setTimeout(() => this.jumpTo('/flow/' + flow.name), 1000);
@@ -135,7 +135,7 @@ export class EditFlowComponent implements OnInit, AfterViewInit {
    * 处理确认删除 Flow
    * @param {CommonOkResponse} commonOkResponse
    */
-  handleConfirmDelete(commonOkResponse: CommonOkResponse): void {
+  private handleConfirmDelete(commonOkResponse: CommonOkResponse): void {
     if (commonOkResponse.code != null) {
       this.deletingMessage = '【 删除成功！ 】';
       setTimeout(() => this.jumpTo('/dashboard'), 1000);
@@ -157,7 +157,7 @@ export class EditFlowComponent implements OnInit, AfterViewInit {
    * 处理从服务器获得的 Plugin 列表数据
    * @param {Plugin[]} plugins
    */
-  handleGetPlugins(pluginsResponse: PluginsResponse): void {
+  private handleGetPlugins(pluginsResponse: PluginsResponse): void {
     if (pluginsResponse.plugins != null) {
       this.pluginsResponse = pluginsResponse;
       localStorage.setItem(AppGlobalField.pluginsResponse, JSON.stringify(pluginsResponse));
@@ -172,7 +172,7 @@ export class EditFlowComponent implements OnInit, AfterViewInit {
   /**
    * 通过路由中的 flowId 得到当前选中的 Flow 信息
    */
-  initCurrentFlow(): void {
+  private initCurrentFlow(): void {
     const flowName: string = this.route.snapshot.paramMap.get('flowName');
     for (const tempFlow of JSON.parse(localStorage.getItem(AppGlobalField.flows))) {
       if (tempFlow.name === flowName) {
@@ -185,7 +185,7 @@ export class EditFlowComponent implements OnInit, AfterViewInit {
   /**
    * 获取当前 Flow 的仓库所包含的分支列表
    */
-  initCurrentRepoBranches(): void {
+  private initCurrentRepoBranches(): void {
     if (localStorage.getItem(AppGlobalField.githubAccountResponse) != null) {
       for (const repo of JSON.parse(localStorage.getItem(AppGlobalField.githubAccountResponse)).githubRepos) {
         if (repo.id === this.flow.repoId) {
@@ -199,7 +199,7 @@ export class EditFlowComponent implements OnInit, AfterViewInit {
   /**
    * 获取当前 Flow 包含的插件
    */
-  initCurrentPlugins(): void {
+  private initCurrentPlugins(): void {
     for (const tempStrPlugin of this.flow.plugins) {
       for (const tempObjectPlugin of this.pluginsResponse.plugins) {
         if (tempObjectPlugin.scriptName === tempStrPlugin) {
@@ -212,7 +212,7 @@ export class EditFlowComponent implements OnInit, AfterViewInit {
   /**
    * 获取当前 Flow 配置的触发分支
    */
-  initCurrentTriggerPush(): void {
+  private initCurrentTriggerPush(): void {
     for (const tempPushBranch of this.flow.triggerPush) {
       this.currentTriggerPush.push(tempPushBranch);
     }
@@ -221,7 +221,7 @@ export class EditFlowComponent implements OnInit, AfterViewInit {
   /**
    * 初始化当前选中的 TriggerPush
    */
-  initCurrentCheckedTriggerPush(): void {
+  private initCurrentCheckedTriggerPush(): void {
     if (localStorage.getItem(AppGlobalField.githubAccountResponse) != null) {
       for (const branch of this.currentRepoBranches) {
         for (const tempBranch of this.currentTriggerPush) {
@@ -241,7 +241,7 @@ export class EditFlowComponent implements OnInit, AfterViewInit {
   /**
    * 初始化当前 Flow 的存在的环境变量
    */
-  initCurrentExistPluginEnv(): void {
+  private initCurrentExistPluginEnv(): void {
     this.needEnv = this.flow.needEnv;
     for (const env of this.flow.needEnv) {
       const tempElements = this.elementRef.nativeElement.querySelectorAll('input');
@@ -320,7 +320,7 @@ export class EditFlowComponent implements OnInit, AfterViewInit {
     this.location.back();
   }
 
-  jumpTo(url: string): void {
+  private jumpTo(url: string): void {
     this.commonService.jumpTo(url);
   }
 }

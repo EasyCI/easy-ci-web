@@ -58,7 +58,7 @@ export class CreateFlowComponent implements OnInit {
    * 处理从服务器获得的 Plugin 列表数据
    * @param {Plugin[]} plugins
    */
-  handleGetPlugins(pluginsResponse: PluginsResponse): void {
+  private handleGetPlugins(pluginsResponse: PluginsResponse): void {
     if (pluginsResponse.plugins != null) {
       this.pluginsResponse = pluginsResponse;
       localStorage.setItem(AppGlobalField.pluginsResponse, JSON.stringify(pluginsResponse));
@@ -115,7 +115,7 @@ export class CreateFlowComponent implements OnInit {
    * 处理创建 Flow
    * @param {Flow} flow
    */
-  handleCreateFlow(flow: Flow): void {
+  private handleCreateFlow(flow: Flow): void {
     if (flow.id != null) {
       this.creatingMessage = '【 创建成功！ 】';
       setTimeout(() => this.jumpTo('/flow/' + flow.name), 1000);
@@ -139,7 +139,7 @@ export class CreateFlowComponent implements OnInit {
    * 处理更新 GitHub 仓库列表的操作
    * @param {GithubAccountResponse} githubAccountResponse
    */
-  handleUpdateGithubAccount(githubAccountResponse: GithubAccountResponse): void {
+  private handleUpdateGithubAccount(githubAccountResponse: GithubAccountResponse): void {
     if (githubAccountResponse.githubAccount.login != null) {
       localStorage.setItem(AppGlobalField.githubAccountResponse, JSON.stringify(githubAccountResponse));
       this.githubAccountResponse = githubAccountResponse;
@@ -219,7 +219,7 @@ export class CreateFlowComponent implements OnInit {
     this.location.back();
   }
 
-  jumpTo(url: string): void {
+  private jumpTo(url: string): void {
     this.commonService.jumpTo(url);
   }
 }

@@ -44,7 +44,7 @@ export class HomeComponent implements OnInit {
    * 处理用户注册
    * @param {User} user
    */
-  handleRegister(user: User): void {
+  private handleRegister(user: User): void {
     if (user.email != null) {
       this.user = user;
       this.showMessage = null;
@@ -56,7 +56,7 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  jumpTo(url: string): void {
+  private jumpTo(url: string): void {
     this.commonService.jumpTo(url);
   }
 }

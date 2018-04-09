@@ -44,7 +44,7 @@ export class LoginComponent implements OnInit {
    * 处理用户登录
    * @param {LoginResponse} loginResponse
    */
-  handleLogin(loginResponse: LoginResponse): void {
+  private handleLogin(loginResponse: LoginResponse): void {
     if (loginResponse.userToken != null) {
       this.loginResponse = loginResponse;
       this.showMessage = null;
@@ -58,7 +58,7 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  jumpTo(url: string): void {
+  private jumpTo(url: string): void {
     this.commonService.jumpTo(url);
   }
 }

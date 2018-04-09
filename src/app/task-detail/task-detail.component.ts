@@ -46,7 +46,7 @@ export class TaskDetailComponent implements OnInit, OnDestroy {
   /**
    * 获取当前任务的构建详情
    */
-  getCurrentTaskBuildDetail(): void {
+  private getCurrentTaskBuildDetail(): void {
     const taskQueueNumber: string = this.route.snapshot.paramMap.get('taskQueueNumber');
     for (const tempBuildDetail of JSON.parse(localStorage.getItem(AppGlobalField.buildDetailResponse)).buildDetails) {
       if (taskQueueNumber === tempBuildDetail.queueNumber.toString()) {
@@ -59,7 +59,7 @@ export class TaskDetailComponent implements OnInit, OnDestroy {
   /**
    * 获取当前 Flow 最新任务构建列表（倒序）
    */
-  updateBuildDetail(): void {
+  private updateBuildDetail(): void {
     this.taskService.upToDate(this.currentBuildDetail.flowId)
       .subscribe(result => this.handleTaskUpToDate(result));
   }

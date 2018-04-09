@@ -43,7 +43,7 @@ export class SettingComponent implements OnInit {
    * 处理授权请求，启动新窗口操作
    * @param {GithubAuthUrlResponse} githubAuthUrlResponse
    */
-  handleGetGithubAuthUrl(githubAuthUrlResponse: GithubAuthUrlResponse): void {
+  private handleGetGithubAuthUrl(githubAuthUrlResponse: GithubAuthUrlResponse): void {
     this.beginAuth = 1;
     window.open(githubAuthUrlResponse.url, '_blank');
   }
@@ -60,7 +60,7 @@ export class SettingComponent implements OnInit {
    * 处理获取到的 GitHub 账户信息及仓库列表
    * @param {GithubAccountResponse} githubAccountResponse
    */
-  handleGetGithubAccount(githubAccountResponse: GithubAccountResponse): void {
+  private handleGetGithubAccount(githubAccountResponse: GithubAccountResponse): void {
     if (githubAccountResponse.githubAccount != null) {
       this.githubAccountResponse = githubAccountResponse;
       this.showMessage = null;
@@ -90,7 +90,7 @@ export class SettingComponent implements OnInit {
    * 处理用户修改密码
    * @param {User} user
    */
-  handleChangePassword(user: User): void {
+  private handleChangePassword(user: User): void {
     if (user.email != null) {
       this.user = user;
       this.showMessage = null;
@@ -106,7 +106,7 @@ export class SettingComponent implements OnInit {
     }
   }
 
-  jumpTo(url: string): void {
+  private jumpTo(url: string): void {
     this.commonService.jumpTo(url);
   }
 }

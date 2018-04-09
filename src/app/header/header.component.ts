@@ -43,12 +43,12 @@ export class HeaderComponent implements OnInit {
     }
   }
 
-  handleflowGetAll(flows: Flow[]): void {
+  private handleflowGetAll(flows: Flow[]): void {
     this.flows = flows;
     localStorage.setItem(AppGlobalField.flows, JSON.stringify(flows));
   }
 
-  jumpTo(url: string): void {
+  private jumpTo(url: string): void {
     this.commonService.jumpTo(url);
   }
 }
