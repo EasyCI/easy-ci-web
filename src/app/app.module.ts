@@ -42,7 +42,15 @@ import {TaskDetailComponent} from './task-detail/task-detail.component';
     AppRoutingModule,
     FormsModule
   ],
-  providers: [UserService, ExceptionService, CommonService, FlowService, ReposService, TaskService],
+  providers: [
+    UserService,
+    ExceptionService,
+    CommonService,
+    FlowService,
+    ReposService,
+    TaskService,
+    FlowTasksComponent
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

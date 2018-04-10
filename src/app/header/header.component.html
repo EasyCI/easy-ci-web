@@ -1,18 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-dark fixed-top">
-  <div ngbDropdown class="col text-left d-inline-block">
-    <button class="btn btn-light btn-sm" id="dropdownBasic1" ngbDropdownToggle>工作流
-    </button>
-    <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-      <button class="dropdown-item" *ngIf="loginResponse != null" routerLink="/flow/create">新建</button>
-      <button class="dropdown-item" *ngIf="loginResponse == null" routerLink="/user/login">请先登录</button>
-      <hr *ngIf="loginResponse != null">
-      <div *ngIf="loginResponse != null">
-        <button class="dropdown-item"
-                *ngFor="let flow of flows"
-                routerLink="/flow/{{flow.name}}">{{flow.name}}
-        </button>
-      </div>
-    </div>
+  <div class="col text-left d-inline-block">
+    <button class="btn btn-light btn-sm" (click)="switchShowFlowList()">工作流</button>
   </div>
   <div class="col text-center text-light">
     <h4 routerLink="/">EasyCI</h4>
@@ -29,3 +17,23 @@
     </div>
   </div>
 </nav>
+<div id="flowList" *ngIf="flowListStatus"
+     style="background-color: #E0E2E4; position: fixed; z-index: 99; overflow: auto;
+     margin-top: 52px; padding-bottom: 52px; height: 100%; width: 18%;">
+  <div style="margin: 20px;">
+    <button class="btn btn-light" *ngIf="loginResponse == null" routerLink="/user/login"
+            style="width: 100%;">请先登录
+    </button>
+    <button class="btn btn-light" *ngIf="loginResponse != null" routerLink="/flow/create"
+            style="width: 100%;">新建 ⊕
+    </button>
+    <hr *ngIf="loginResponse != null">
+    <div *ngIf="loginResponse != null">
+      <div *ngFor="let flow of flows">
+        <button class="btn btn-light btn-lg" (click)="switchFlowDetail('/flow/' + flow.name)"
+                style="width: 100%; text-align: left; margin-bottom: 5px;">{{flow.name}}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

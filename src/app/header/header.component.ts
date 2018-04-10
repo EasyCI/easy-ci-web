@@ -5,6 +5,8 @@ import {UserService} from '../core/service/user.service';
 import {CommonService} from '../core/service/common.service';
 import {FlowService} from '../core/service/flow.service';
 import {Flow} from '../core/domain/flow';
+import {FlowTasksComponent} from '../flow-tasks/flow-tasks.component';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -16,10 +18,13 @@ export class HeaderComponent implements OnInit {
   loginOrOut: string;
   loginResponse: string;
   flows: Flow[];
+  flowListStatus: boolean;
 
   constructor(private userService: UserService,
               private commonService: CommonService,
-              private flowService: FlowService) {
+              private flowService: FlowService,
+              private flowTaskComponent: FlowTasksComponent,
+              private route: ActivatedRoute) {
   }
 
   ngOnInit() {
@@ -40,6 +45,31 @@ export class HeaderComponent implements OnInit {
     } else {
       localStorage.removeItem(AppGlobalField.loginResponse);
       this.jumpTo('/user/login');
+    }
+  }
+
+  /**
+   * 开关左侧 Flow 列表
+   */
+  switchShowFlowList(): void {
+    if (this.flowListStatus) {
+      this.flowListStatus = false;
+    } else {
+      this.flowListStatus = true;
+    }
+  }
+
+  /**
+   * 切换不同的工作流详情
+   * @param {string} url
+   */
+  switchFlowDetail(url: string): void {
+    this.commonService.jumpTo(url);
+
+    // 因为这个路由跳转到自身，所以需要强制刷新组件视图
+    if (this.route.component.toString().substring(9, 27) === 'FlowTasksComponent') {
+      this.flowTaskComponent.ngOnDestroy();
+      this.flowTaskComponent.ngOnInit();
     }
   }
 

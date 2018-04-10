@@ -1,0 +1,10 @@
+#flowList {
+  animation: bounceInLeft .3s
+}
+
+@keyframes bounceInLeft {
+  0% {
+    opacity: 0;
+    transform: translate3d(-50px, 0, 0);
+  }
+}
