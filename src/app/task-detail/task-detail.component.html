@@ -1,4 +1,8 @@
 <app-header></app-header>
+<button class="btn btn-dark" (click)="goBack()"
+        style="position: fixed; z-index: 9999; margin-left: 10px; margin-top: 8px;">
+  <span class="oi oi-arrow-circle-left"></span><b> 返回&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b>
+</button>
 <!--第一个 jumbotron 用于铺个底-->
 <div class="jumbotron" style="margin-bottom: auto; height: 100%; width: 100%; position: absolute"></div>
 <div class="jumbotron row" style="margin-bottom: auto; height: auto; width: 100%; position: absolute"
@@ -32,7 +36,9 @@
         <ng-template ngbTabContent>
           <hr class="my-0">
           <ul class="list-group" style="margin-top: 5px;">
-            <li class="list-group-item list-group-item-dark">&emsp;提交信息</li>
+            <li class="list-group-item list-group-item-dark">
+              <span class="oi oi-info"></span>&emsp;提交信息
+            </li>
             <li class="list-group-item list-group-item-action">
               <span>&emsp;项目名称&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</span>
               <span>{{flowName}}</span>
@@ -45,7 +51,9 @@
               <span>&emsp;开发平台&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</span>
               <span>{{currentBuildDetail.platform}}</span>
             </li>
-            <li class="list-group-item list-group-item-dark">&emsp;构建信息</li>
+            <li class="list-group-item list-group-item-dark">
+              <span class="oi oi-info"></span>&emsp;构建信息
+            </li>
             <li class="list-group-item list-group-item-action">
               <span>&emsp;编译环境&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</span>
               <span>{{currentBuildDetail.version}}</span>

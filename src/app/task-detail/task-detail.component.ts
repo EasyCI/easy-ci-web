@@ -6,6 +6,7 @@ import {BuildDetail} from '../core/domain/build-detail';
 import {TaskService} from '../core/service/task.service';
 import {BuildDetailResponse} from '../core/domain/response/build-detail-response';
 import {ExceptionService} from '../core/service/exception.service';
+import {Location} from '@angular/common';
 import Timer = NodeJS.Timer;
 
 @Component({
@@ -23,7 +24,8 @@ export class TaskDetailComponent implements OnInit, OnDestroy {
 
   constructor(private route: ActivatedRoute,
               private taskService: TaskService,
-              private exceptionService: ExceptionService) {
+              private exceptionService: ExceptionService,
+              private location: Location) {
   }
 
   ngOnInit() {
@@ -86,5 +88,9 @@ export class TaskDetailComponent implements OnInit, OnDestroy {
     } else {
       this.exceptionService.handleError(buildDetailResponse);
     }
+  }
+
+  goBack(): void {
+    this.location.back();
   }
 }

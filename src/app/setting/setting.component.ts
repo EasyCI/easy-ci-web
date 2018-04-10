@@ -8,6 +8,7 @@ import {AppGlobalField} from '../core/app-global-field';
 import {GithubAccountResponse} from '../core/domain/response/github-account-response';
 import {ReposService} from '../core/service/repos.service';
 import {GithubAuthUrlResponse} from '../core/domain/response/github-auth-url-response';
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-setting',
@@ -24,7 +25,8 @@ export class SettingComponent implements OnInit {
   constructor(private userService: UserService,
               private commonService: CommonService,
               private exceptionService: ExceptionService,
-              private reposService: ReposService) {
+              private reposService: ReposService,
+              private location: Location) {
   }
 
   ngOnInit() {
@@ -84,6 +86,10 @@ export class SettingComponent implements OnInit {
     } else {
       this.showMessage = '两次输入的新密码不相同！';
     }
+  }
+
+  goBack(): void {
+    this.location.back();
   }
 
   /**

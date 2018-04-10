@@ -16,6 +16,7 @@ import {ActivatedRoute} from '@angular/router';
 export class HeaderComponent implements OnInit {
 
   loginOrOut: string;
+  loginOrOutIcon: string;
   loginResponse: string;
   flows: Flow[];
   flowListStatus: boolean;
@@ -31,9 +32,11 @@ export class HeaderComponent implements OnInit {
     if ((this.loginResponse = localStorage.getItem(AppGlobalField.loginResponse)) == null) {
       // 未登录状态
       this.loginOrOut = '登录';
+      this.loginOrOutIcon = 'oi-account-login';
     } else {
       // 登录状态
       this.loginOrOut = '退出';
+      this.loginOrOutIcon = 'oi-account-logout';
       // 获取用户所有的工作流
       this.flowService.getAll().subscribe(result => this.handleflowGetAll(result));
     }
