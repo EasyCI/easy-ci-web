@@ -1,108 +1,134 @@
 <app-header></app-header>
 <!--第一个 jumbotron 用于铺个底-->
 <div class="jumbotron" style="margin-bottom: auto; height: 100%; width: 100%; position: absolute"></div>
-<div class="jumbotron" style="margin-bottom: auto; height: auto; width: 100%; position: absolute"
+<div class="jumbotron row" style="margin-bottom: auto; height: auto; width: 100%; position: absolute"
      *ngIf="dataReady == true">
-  <!--错误提示-->
-  <div *ngIf="showMessage != null">
-    <ngb-alert [dismissible]="false" type="danger" style="text-align: center">
-      {{showMessage}}
-    </ngb-alert>
+  <!--占位-->
+  <div class="col-2"></div>
+  <div class="col-8">
+    <!--错误提示-->
+    <div *ngIf="showMessage != null">
+      <ngb-alert [dismissible]="false" type="danger" style="text-align: center">
+        {{showMessage}}
+      </ngb-alert>
+    </div>
+    <div class="row" style="margin-top: 20px; margin-left: 10px; margin-bottom: 10px;">
+      <div *ngIf="currentBuildDetail.building" class="row" style="margin-left: 4px;">
+        <h5>构建中</h5>
+        <span class="d">&nbsp;.&nbsp;</span>
+        <span class="d d-2">&nbsp;.&nbsp;</span>
+        <span class="d d-3">&nbsp;.&nbsp;</span>
+      </div>
+      <div *ngIf="currentBuildDetail.success">
+        <h5><strong style="color: limegreen;">&radic;</strong> 构建成功</h5>
+      </div>
+      <div *ngIf="currentBuildDetail.success == false">
+        <h5><strong style="color: red;">&times;</strong> 构建失败</h5>
+      </div>
+    </div>
+    <ngb-tabset #t>
+      <ngb-tab>
+        <ng-template ngbTabTitle>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;●&nbsp;详细信息&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</ng-template>
+        <ng-template ngbTabContent>
+          <hr class="my-0">
+          <ul class="list-group" style="margin-top: 5px;">
+            <li class="list-group-item list-group-item-dark">&emsp;提交信息</li>
+            <li class="list-group-item list-group-item-action">
+              <span>&emsp;项目名称&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</span>
+              <span>{{flowName}}</span>
+            </li>
+            <li class="list-group-item list-group-item-action">
+              <span>&emsp;构建分支&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</span>
+              <span>{{currentBuildDetail.triggerBranch}}</span>
+            </li>
+            <li class="list-group-item list-group-item-action">
+              <span>&emsp;开发平台&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</span>
+              <span>{{currentBuildDetail.platform}}</span>
+            </li>
+            <li class="list-group-item list-group-item-dark">&emsp;构建信息</li>
+            <li class="list-group-item list-group-item-action">
+              <span>&emsp;编译环境&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</span>
+              <span>{{currentBuildDetail.version}}</span>
+            </li>
+            <li class="list-group-item list-group-item-action">
+              <span>&emsp;构建方式&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</span>
+              <span *ngIf="currentBuildDetail.manual">手动构建</span>
+              <span *ngIf="!currentBuildDetail.manual">自动构建</span>
+            </li>
+            <li class="list-group-item list-group-item-action">
+              <span>&emsp;构建时间&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</span>
+              <span>{{currentBuildDetail.updatedAt}}</span>
+            </li>
+            <li class="list-group-item list-group-item-action">
+              <span>&emsp;用&emsp;&emsp;时&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</span>
+              <span>{{currentBuildDetail.duration}}</span>
+            </li>
+          </ul>
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab>
+        <ng-template ngbTabTitle>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;●&nbsp;构建日志&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</ng-template>
+        <ng-template ngbTabContent>
+          <hr class="my-0">
+          <ngb-accordion *ngFor="let buildLog of currentBuildDetail.buildLogs"
+                         activeIds="{{currentBuildDetail.building}}">
+            <ngb-panel id=true>
+              <ng-template ngbPanelTitle>
+                <div style="color: black; background-color: #C6C8CA;
+                    margin-left: -14px; margin-right: -21px; margin-top: -4px; margin-bottom: -14px;
+                    padding-left: 20px; padding-right: 20px; padding-top: 14px; padding-bottom: 14px;">
+                  <strong *ngIf="buildLog.success" style="color: limegreen;"><b>&radic;</b></strong>
+                  <strong *ngIf="buildLog.success == false" style="color: red;"><b>&times;</b></strong>
+                  {{buildLog.stepName}}
+                </div>
+              </ng-template>
+              <ng-template ngbPanelContent>
+                <div style="background-color: #33383E;
+                    margin-left: -14px; margin-right: -21px; margin-top: -20px; margin-bottom: -20px;
+                    padding-left: 20px; padding-right: 20px; padding-bottom: 1px;">
+                  <pre style="color: white;">{{buildLog.logContent}}<br/><br/></pre>
+                </div>
+              </ng-template>
+            </ngb-panel>
+          </ngb-accordion>
+          <!--用于临时显示下一个插件进行中的占位的-->
+          <ngb-accordion *ngIf="currentBuildDetail.building" activeIds="nextStep">
+            <ngb-panel id="nextStep">
+              <ng-template ngbPanelTitle>
+                <div class="row" style="color: black; background-color: #C6C8CA;
+                    margin-left: -14px; margin-right: -21px; margin-top: -4px; margin-bottom: -14px;
+                    padding-left: 20px; padding-right: 20px; padding-top: 14px; padding-bottom: 14px;">
+                  <span>&#9733; NEXT</span>
+                  <span class="d">&nbsp;.&nbsp;</span>
+                  <span class="d d-2">&nbsp;.&nbsp;</span>
+                  <span class="d d-3">&nbsp;.&nbsp;</span>
+                </div>
+              </ng-template>
+              <ng-template ngbPanelContent>
+                <div style="background-color: #33383E;
+                    margin-left: -14px; margin-right: -21px; margin-top: -20px; margin-bottom: -20px;
+                    padding-left: 20px; padding-right: 20px; padding-top: 20px; padding-bottom: 1px;">
+                  <pre style="color: white;">Loading ......</pre>
+                </div>
+              </ng-template>
+            </ngb-panel>
+          </ngb-accordion>
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab id="3">
+        <ng-template ngbTabTitle>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;●&nbsp;产物存储&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</ng-template>
+        <ng-template ngbTabContent>
+          <hr class="my-0">
+          <div style="margin-top: 80px;" align="center">
+            <a class="btn btn btn-outline-secondary btn-lg"
+               *ngIf="currentBuildDetail.productPreviewUrl != null"
+               href="{{currentBuildDetail.productPreviewUrl}}"
+               target="_blank">&emsp;&emsp;&emsp;查看产物&emsp;&emsp;&emsp;</a>
+            <h5 style="color: darkgray"
+                *ngIf="currentBuildDetail.productPreviewUrl == null">Doesn't Exist!</h5>
+          </div>
+        </ng-template>
+      </ngb-tab>
+    </ngb-tabset>
   </div>
-  <div class="row" style="margin-top: 20px;">
-    <div *ngIf="currentBuildDetail.building" class="row">
-      <h5>构建中</h5>
-      <span class="d">&nbsp;.&nbsp;</span>
-      <span class="d d-2">&nbsp;.&nbsp;</span>
-      <span class="d d-3">&nbsp;.&nbsp;</span>
-    </div>
-    <div *ngIf="currentBuildDetail.success">
-      <h5><strong style="color: limegreen;">&radic;</strong> 构建成功</h5>
-    </div>
-    <div *ngIf="currentBuildDetail.success == false">
-      <h5><strong style="color: red;">&times;</strong> 构建失败</h5>
-    </div>
-    &nbsp;&nbsp;&nbsp;<p *ngIf="currentBuildDetail.manual">手动构建</p>
-    <p *ngIf="currentBuildDetail.manual == false">自动构建</p>
-    &nbsp;&nbsp;&nbsp;<p>构建于：{{currentBuildDetail.updatedAt.substring(5, 16)}}</p>
-    &nbsp;&nbsp;&nbsp;<p>用时：{{currentBuildDetail.duration}}</p>
-  </div>
-  <ngb-tabset #t>
-    <ngb-tab>
-      <ng-template ngbTabTitle><b>&nbsp;&nbsp;&nbsp;&nbsp;●&nbsp;&nbsp;详细信息&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b>
-      </ng-template>
-      <ng-template ngbTabContent>
-        <hr class="my-0">
-
-        项目名称：{{flowName}}<br>
-        构建分支：{{currentBuildDetail.triggerBranch}}<br>
-        开发平台：{{currentBuildDetail.platform}}<br>
-        编译环境：{{currentBuildDetail.version}}<br>
-        手动构建：{{currentBuildDetail.manual}}<br>
-        用时：{{currentBuildDetail.duration}}<br>
-        构建在：{{currentBuildDetail.updatedAt}}<br>
-
-      </ng-template>
-    </ngb-tab>
-    <ngb-tab>
-      <ng-template ngbTabTitle><b>&nbsp;&nbsp;&nbsp;&nbsp;●&nbsp;&nbsp;构建日志&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b>
-      </ng-template>
-      <ng-template ngbTabContent>
-        <hr class="my-0">
-
-        <ngb-accordion #acc *ngFor="let buildLog of currentBuildDetail.buildLogs"
-                       activeIds="{{currentBuildDetail.building}}">
-          <ngb-panel id=true>
-            <ng-template ngbPanelTitle>
-              <div style="margin-left: 10px; color: black;">
-                <strong *ngIf="buildLog.success" style="color: limegreen;">&radic;</strong>
-                <strong *ngIf="buildLog.success == false" style="color: red;">&times;</strong>
-                {{buildLog.stepName}}
-              </div>
-            </ng-template>
-            <ng-template ngbPanelContent>
-              <div
-                style="background-color: #33383E; margin: -15px; padding-left: 20px; padding-right: 20px; padding-bottom: 2px;">
-                <pre style="color: white;">{{buildLog.logContent}}<br/><br/></pre>
-              </div>
-            </ng-template>
-          </ngb-panel>
-        </ngb-accordion>
-        <!--用于临时显示下一个插件进行中的占位的-->
-        <ngb-accordion *ngIf="currentBuildDetail.building" activeIds="nextStep">
-          <ngb-panel id="nextStep">
-            <ng-template ngbPanelTitle>
-              <div class="row" style="margin-left: 10px; color: black;">
-                <span>&#9733; NEXT</span>
-                <span class="d">&nbsp;.&nbsp;</span>
-                <span class="d d-2">&nbsp;.&nbsp;</span>
-                <span class="d d-3">&nbsp;.&nbsp;</span>
-              </div>
-            </ng-template>
-            <ng-template ngbPanelContent>
-              <div style="background-color: #33383E; margin: -15px; padding: 20px;">
-                <pre style="color: white;">Loading ......</pre>
-              </div>
-            </ng-template>
-          </ngb-panel>
-        </ngb-accordion>
-
-      </ng-template>
-    </ngb-tab>
-    <ngb-tab id="3">
-      <ng-template ngbTabTitle><b>&nbsp;&nbsp;&nbsp;&nbsp;●&nbsp;&nbsp;产物存储&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b>
-      </ng-template>
-      <ng-template ngbTabContent>
-        <hr class="my-0">
-
-        Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee
-        squid.
-        <p>Exercitation +1 labore velit,
-          shorts beard ut DIY ethical culpa terry richardson biodiesel. Art party scenester stumptown, tumblr butcher
-          vero
-          sint qui sapiente accusamus tattooed echo park.</p>
-
-      </ng-template>
-    </ngb-tab>
-  </ngb-tabset>
 </div>
