@@ -11,10 +11,10 @@
   <div class="col-8">
     <br><br>
     <div class="col-10">
-      <div *ngIf="githubAccountResponse == null" style="margin-top: 30px;">
+      <div *ngIf="githubAccountResponse == null">
         <h4>尚未获取 GitHub 仓库授权，现在<a routerLink="/user/setting"><strong>去授权</strong></a></h4>
       </div>
-      <div *ngIf="githubAccountResponse != null" style="margin-top: 30px;">
+      <div *ngIf="githubAccountResponse != null">
         <p style="text-align: left; margin-top: 30px;"><strong>&nbsp;调整触发分支：</strong></p>
         <p style="text-align: left; margin-top: -15px" class="small">&nbsp;当代码仓库收到提交请求时，EasyCI 将自动触发构建</p>
         <hr>

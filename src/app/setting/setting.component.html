@@ -25,23 +25,22 @@
   </div>
   <div class="col-8">
     <br><br>
+    <h2 style="margin-bottom: 20px;">个人设置</h2>
     <ngb-tabset>
-      <ngb-tab title="授权 Github">
+      <ngb-tab>
+        <ng-template ngbTabTitle>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;●&nbsp;授权 Github&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</ng-template>
         <ng-template ngbTabContent>
           <!--用于加粗标签底线-->
           <hr class="my-0">
-          <div *ngIf="githubAccountResponse == null" class="col-6" style="margin-top: 50px">
+          <div *ngIf="githubAccountResponse == null" style="margin-top: 50px">
             <h4>获取访问您 GitHub 的权限</h4>
-            <hr>
-            <button class="btn btn-success btn-lg" style="width: 100%"
+            <button class="btn btn-success btn-lg col-6" style="width: 100%; margin-top: 20px;"
                     (click)="goToAuthorize()">去授权
             </button>
           </div>
-          <div *ngIf="githubAccountResponse != null"
-               class="col-6" style="margin-top: 50px">
+          <div *ngIf="githubAccountResponse != null" style="margin-top: 50px">
             <h4>已授权的 Github 账户</h4>
-            <hr>
-            <div class="card" style="width: 10rem;">
+            <div class="card" style="width: 10rem; margin-top: 20px;">
               <img class="card-img-top" [src]="githubAccountResponse.githubAccount.avatarUrl"
                    alt="GitHub Account Avatar">
               <div class="card-body">
@@ -52,7 +51,8 @@
           </div>
         </ng-template>
       </ngb-tab>
-      <ngb-tab title="修改密码">
+      <ngb-tab>
+        <ng-template ngbTabTitle>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;●&nbsp;修改密码&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</ng-template>
         <ng-template ngbTabContent>
           <!--用于加粗标签底线-->
           <hr class="my-0">
