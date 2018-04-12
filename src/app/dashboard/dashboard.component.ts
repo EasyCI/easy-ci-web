@@ -14,6 +14,8 @@ export class DashboardComponent implements OnInit {
   showMessage: string;
   flowDetailResponse: FlowDetailResponse;
 
+  showHelp: boolean;
+
   constructor(private dashboardService: DashboardService,
               private exceptionService: ExceptionService) {
   }

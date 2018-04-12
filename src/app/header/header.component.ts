@@ -47,6 +47,7 @@ export class HeaderComponent implements OnInit {
       this.jumpTo('/user/login');
     } else {
       localStorage.removeItem(AppGlobalField.loginResponse);
+      localStorage.removeItem(AppGlobalField.githubAccountResponse);
       this.jumpTo('/user/login');
     }
   }
