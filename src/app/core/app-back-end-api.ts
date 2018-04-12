@@ -18,4 +18,6 @@ export class AppBackEndApi {
   // RESTful API (task/*)
   static taskTrigger = AppBackEndApi.backendHost + '/task/trigger';
   static taskUpToDate = AppBackEndApi.backendHost + '/task/up_to_date';
+  // RESTful API (dashboard/*)
+  static dashboardGetFlowDetails = AppBackEndApi.backendHost + '/dashboard/get_flow_details';
 }

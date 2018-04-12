@@ -4,4 +4,5 @@ export class AppGlobalField {
   static githubAccountResponse = 'GithubAccountResponse';
   static pluginsResponse = 'PluginsResponse';
   static buildDetailResponse = 'BuildDetailResponse';
+  static flowDetailResponse = 'FlowDetailResponse';
 }

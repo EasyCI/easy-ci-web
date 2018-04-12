@@ -21,6 +21,7 @@ import {FlowTasksComponent} from './flow-tasks/flow-tasks.component';
 import {EditFlowComponent} from './edit-flow/edit-flow.component';
 import {TaskService} from './core/service/task.service';
 import {TaskDetailComponent} from './task-detail/task-detail.component';
+import {DashboardService} from './core/service/dashboard.service';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import {TaskDetailComponent} from './task-detail/task-detail.component';
     FlowService,
     ReposService,
     TaskService,
-    FlowTasksComponent
+    FlowTasksComponent,
+    DashboardService
   ],
   bootstrap: [AppComponent]
 })

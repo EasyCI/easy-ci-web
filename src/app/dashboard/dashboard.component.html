@@ -1,8 +1,60 @@
 <app-header></app-header>
 <!--第一个 jumbotron 用于铺个底-->
 <div class="jumbotron" style="margin-bottom: auto; height: 100%; width: 100%; position: absolute"></div>
-<div class="jumbotron" style="margin-bottom: auto; height: auto; width: 100%; position: absolute" align="center">
-
-  <h1>这是仪表板</h1>
-
+<div class="jumbotron row" style="margin-bottom: auto; height: auto; width: 100%; position: absolute">
+  <!--占位-->
+  <div class="col-2"></div>
+  <div class="col-8">
+    <!--错误提示-->
+    <div *ngIf="showMessage != null">
+      <ngb-alert [dismissible]="false" type="danger" style="text-align: center">
+        {{showMessage}}
+      </ngb-alert>
+    </div>
+    <div *ngIf="flowDetailResponse != null">
+      <div class="row" style="margin-top: 20px; margin-left: 5px;">
+        <h3>
+          <span class="oi oi-list small"></span>
+          <b>我的工作流</b>
+          <span class="badge badge-pill badge-warning">{{flowDetailResponse.flowDetails.length}}</span>
+        </h3>
+        <button class="btn btn-outline-secondary btn-sm" style="text-align: right; margin: auto; margin-right: 16px;">
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="oi oi-question-mark"></span>&nbsp;&nbsp;如何开始&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        </button>
+      </div>
+      <hr class="my-0">
+      <div class="row" style="margin-top: 10px;">
+        <div class="col-4" *ngFor="let flowDetail of flowDetailResponse.flowDetails">
+          <div class="card" style="width: auto; margin-bottom: 25px;">
+            <img class="card-img-top btn" routerLink="/flow/{{flowDetail.flow.name}}"
+                 src="../../assets/img/platform-{{flowDetail.flow.platform}}.png" alt="Platform Icon">
+            <button class="btn btn-outline-secondary" routerLink="/flow/{{flowDetail.flow.name}}/edit"
+                    style="margin-left: 30px; margin-right: 30px;">
+              <span class="oi oi-pencil"></span> &nbsp;编辑
+            </button>
+            <div class="card-body" style="text-align: center">
+              <h5 class="card-title"><span class="oi oi-task small"></span> <b>{{flowDetail.flow.name}}</b></h5>
+              <hr>
+              <span class="badge badge-pill badge-secondary"
+                    style="font-size: medium;margin-bottom: 10px;">历史：{{flowDetail.historySum}}</span>
+              <br>
+              <span class="badge badge-pill badge-success"
+                    style="font-size: smaller;">成功：{{flowDetail.successSum}}</span>
+              <span class="badge badge-pill badge-danger"
+                    style="font-size: smaller;">失败：{{flowDetail.failureSum}}</span>
+              <hr class="my-2">
+              <ng-template #t let-fill="fill">
+                <span class="star" [class.full]="fill === 100">
+                  <span class="half" [style.width.%]="fill">&#9733;</span>&#9733;
+                </span>
+              </ng-template>
+              <ngb-rating rate="{{flowDetail.rating}}" [starTemplate]="t" [readonly]="true" max="5"></ngb-rating>
+              <hr class="my-1">
+              <p><b>最后构建：{{flowDetail.lastBuildTime}}</b></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

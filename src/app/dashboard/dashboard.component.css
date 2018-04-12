@@ -1,0 +1,33 @@
+.card {
+  transition: all 0.2s; /*图片放大过程的时间*/
+}
+
+.card:hover {
+  transform: scale(1.03); /*鼠标经过图片放大的倍数*/
+}
+
+.card-img-top {
+  opacity: 0.8;
+}
+
+.card-img-top:hover {
+  opacity: 1;
+}
+
+.star {
+  position: relative;
+  display: inline-block;
+  font-size: 2rem;
+  color: #d3d3d3;
+}
+
+.full {
+  color: #ffb107;
+}
+
+.half {
+  position: absolute;
+  display: inline-block;
+  overflow: hidden;
+  color: #ffb107;
+}

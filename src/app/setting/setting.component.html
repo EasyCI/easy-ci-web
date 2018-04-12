@@ -45,11 +45,12 @@
           <div *ngIf="githubAccountResponse != null" style="margin-top: 50px">
             <h4>已授权的 Github 账户</h4>
             <div class="card" style="width: 10rem; margin-top: 20px;">
-              <img class="card-img-top" [src]="githubAccountResponse.githubAccount.avatarUrl"
-                   alt="GitHub Account Avatar">
+              <img class="card-img-top" style="width: 8rem; height: 8rem; margin-top: 1rem;"
+                   [src]="githubAccountResponse.githubAccount.avatarUrl" alt="GitHub Account Avatar">
               <div class="card-body">
-                <p class="card-text"><strong>{{githubAccountResponse.githubAccount.login}}</strong></p>
-                <button class="btn btn-success">取消授权</button>
+                <p class="card-text"><b>{{githubAccountResponse.githubAccount.login}}</b></p>
+                <hr class="my-2">
+                <button class="btn btn-danger">取消授权</button>
               </div>
             </div>
           </div>
