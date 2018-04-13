@@ -9,6 +9,7 @@ import {CreateFlowComponent} from './create-flow/create-flow.component';
 import {FlowTasksComponent} from './flow-tasks/flow-tasks.component';
 import {EditFlowComponent} from './edit-flow/edit-flow.component';
 import {TaskDetailComponent} from './task-detail/task-detail.component';
+import {NotFoundComponent} from './not-found/not-found.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
@@ -19,7 +20,8 @@ const routes: Routes = [
   {path: 'flow/create', component: CreateFlowComponent},
   {path: 'flow/:flowName', component: FlowTasksComponent},
   {path: 'flow/:flowName/edit', component: EditFlowComponent},
-  {path: 'flow/:flowName/task/:taskQueueNumber', component: TaskDetailComponent}
+  {path: 'flow/:flowName/task/:taskQueueNumber', component: TaskDetailComponent},
+  {path: '**', component: NotFoundComponent},
 ];
 
 @NgModule({

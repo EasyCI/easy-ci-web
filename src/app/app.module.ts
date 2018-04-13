@@ -22,6 +22,7 @@ import {EditFlowComponent} from './edit-flow/edit-flow.component';
 import {TaskService} from './core/service/task.service';
 import {TaskDetailComponent} from './task-detail/task-detail.component';
 import {DashboardService} from './core/service/dashboard.service';
+import {NotFoundComponent} from './not-found/not-found.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import {DashboardService} from './core/service/dashboard.service';
     CreateFlowComponent,
     FlowTasksComponent,
     EditFlowComponent,
-    TaskDetailComponent
+    TaskDetailComponent,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,
