@@ -70,8 +70,8 @@
             <div class="card">
               <h4 class="card-header">① - 创建 Flow 并配置工作流</h4>
               <div class="card-body">
-                <p class="card-text">● 填写项目名称</p>
-                <p class="card-text">● 选择 Git 仓库源，勾选触发构建的分支</p>
+                <p class="card-text">● 点击左上角「工作流」，选择「新建」</p>
+                <p class="card-text">● 填写项目名称，选择 Git 仓库源，勾选触发构建的分支</p>
                 <p class="card-text">● 基于在线插件，配置需要的工作流</p>
                 <p class="card-text">● 根据提示填写插件参数</p>
               </div>
@@ -100,7 +100,7 @@
             <img class="helpImage" src="../../assets/img/how-git-trigger.png" alt="How create flow"></div>
           <div class="col-7">
             <div class="card">
-              <h4 class="card-header">& - 也可通过 git push 触发自动构建</h4>
+              <h4 class="card-header">& - 日常可通过 git push 触发自动构建</h4>
               <div class="card-body">
                 <p class="card-text">● 正常进行开发工作，完成一个小任务</p>
                 <p class="card-text">● 本地提交并 push 到远程仓库</p>
@@ -126,6 +126,13 @@
           <div class="col-5">
             <img class="helpImage" src="../../assets/img/how-watch-dashboard.png" alt="How create flow"></div>
         </div>
+        <hr>
+        <div class="card">
+          <h4 class="card-header">说明：</h4>
+          <div class="card-body">
+            <p class="card-text">● 本程序暂仅支持基于 Gradle 构建的 Android 项目</p>
+          </div>
+        </div>
       </div>
       <hr class="my-xl-5">
       <div class="card">
@@ -133,11 +140,15 @@
         <div class="card-body">
           <h5 class="card-title" style="margin-bottom: 20px;">更多帮助信息及有关本项目的介绍，点击右上角：<span style="color: #007bff;">我的 > 帮助 / 关于</span>
           </h5>
-          <p class="card-text">● 本程序系个人毕业设计作品，线上平台仅供测试体验，个人数据可能随时被清空！</p>
-          <p class="card-text">● 项目已托管在 GitHub，可根据说明进行私有部署，在内部服务器或本机使用 EasyCI。</p>
-          <p class="card-text">● 同时，欢迎关注国内首套开源持续集成（CI）解决方案<strong style="color: #007bff; font-size: larger;">
-            flow.ci </strong></p>
-          <a href="https://flow.ci" target="_blank" class="btn btn-primary">友情链接</a>
+          <p class="card-text">● 本程序系个人毕业设计作品，线上平台仅供测试体验，个人数据可能随时被<b style="color: red;"> 清空！</b></p>
+          <p class="card-text">● 项目已托管在
+            <a href="https://github.com/EasyCI" target="_blank"><b style="font-size: larger;"> GitHub</b></a>
+            ，推荐根据说明进行私有部署，在内部服务器或本机使用<b style="font-size: large;"> EasyCI</b> 。
+          </p>
+          <p class="card-text">● 同时，欢迎关注国内首套开源持续集成（CI）解决方案
+            <b style="font-size: larger;"><u><i> flow.ci</i></u></b></p>
+          <a href="https://flow.ci" target="_blank" class="btn btn-primary" style="margin-left: 10px;"><b>Go->
+            flow.ci</b></a>
         </div>
       </div>
     </div>
