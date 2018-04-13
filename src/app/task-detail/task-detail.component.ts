@@ -36,7 +36,7 @@ export class TaskDetailComponent implements OnInit, OnDestroy {
 
     // 如果当前任务正在构建中，则启动一个定时器定时更新最新构建数据
     if (this.currentBuildDetail.building) {
-      this.intervalUpdateBuildDetail = setInterval(() => this.updateBuildDetail(), 2 * 1000);
+      this.intervalUpdateBuildDetail = setInterval(() => this.updateBuildDetail(), AppGlobalField.taskDetailTimeout);
     }
   }
 

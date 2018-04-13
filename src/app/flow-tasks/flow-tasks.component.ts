@@ -40,7 +40,7 @@ export class FlowTasksComponent implements OnInit, OnDestroy {
     setTimeout(() => this.taskUpToDate(), 250);
 
     // 设置一个定时器，通过间隔时间刷新当前构件列表数据
-    this.intervalForTaskUpToDate = setInterval(() => this.taskUpToDate(), 5 * 1000);
+    this.intervalForTaskUpToDate = setInterval(() => this.taskUpToDate(), AppGlobalField.flowTasksTimeout);
   }
 
   ngOnDestroy() {
