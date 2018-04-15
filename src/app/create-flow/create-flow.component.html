@@ -1,0 +1,184 @@
+<app-header></app-header>
+<button class="btn btn-dark" (click)="goBack()"
+        style="position: fixed; z-index: 9999; margin-left: 10px; margin-top: 8px;">
+  <span class="oi oi-arrow-circle-left"></span><b> 返回&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b>
+</button>
+<!--第一个 jumbotron 用于铺个底-->
+<div class="jumbotron" style="margin-bottom: auto; height: 100%; width: 100%; position: absolute"></div>
+<div class="jumbotron" style="margin-bottom: auto; height: auto; width: 100%; position: absolute" align="center">
+  <!--错误提示-->
+  <div *ngIf="showMessage != null">
+    <ngb-alert [dismissible]="false" type="danger" style="text-align: center">
+      {{showMessage}}
+    </ngb-alert>
+  </div>
+  <div class="col-8">
+    <br><br>
+    <div class="col-10">
+      <h2><strong>① -</strong>&nbsp;创建 Flow</h2>
+      <p style="text-align: left"><strong>&nbsp;为你的 flow 起个名字：</strong></p>
+      <input [(ngModel)]="name" type="text" class="form-control" placeholder="例如：Android Test">
+      <hr>
+      <p style="text-align: left"><strong>&nbsp;选择仓库源：</strong></p>
+      <div class="row col-10">
+        <input type="radio" [(ngModel)]="repoOrigin" id="github" name="repoOrigin" value="github">
+        <label for="github">
+          <img src="../../assets/img/github-logo.png" style="max-height: 50px">
+          <h5>GitHub</h5>
+        </label>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="radio" [(ngModel)]="repoOrigin" id="coding" name="repoOrigin" value="coding"
+               disabled="false">
+        <label for="coding">
+          <img src="../../assets/img/coding-logo.png" style="max-height: 50px">
+          <h5>Coding</h5>
+        </label>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="radio" [(ngModel)]="repoOrigin" id="gitee" name="repoOrigin" value="gitee"
+               disabled="false">
+        <label for="gitee">
+          <img src="../../assets/img/gitee-logo.png" style="max-height: 50px">
+          <h5>码云</h5>
+        </label>
+      </div>
+      <div *ngIf="repoOrigin != null">
+        <h2 style="margin-top: 60px;"><strong>② -</strong>&nbsp;配置 Git 仓库</h2>
+        <div *ngIf="githubAccountResponse == null" style="margin-top: 30px;">
+          <h4>尚未获取 GitHub 仓库授权，现在<a routerLink="/user/setting"><strong>去授权</strong></a></h4>
+        </div>
+        <div *ngIf="githubAccountResponse != null" style="margin-top: 30px;">
+          <p style="text-align: left"><strong>&nbsp;在下面的服务中选个一个 Git 仓库：</strong></p>
+          <div *ngIf="repoOrigin == 'github'">
+            <div class="row" style="text-align: left">
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <img style="width: 2rem; height: 2rem;" [src]="githubAccountResponse.githubAccount.avatarUrl">
+              &nbsp;&nbsp;&nbsp;
+              <h5><strong>{{githubAccountResponse.githubAccount.login}}</strong></h5>
+            </div>
+            <div align="right">
+              <button class="btn btn-light btn-sm" style="color: dodgerblue;"
+                      (click)="updateGithubAccount()">更新仓库列表
+              </button>
+            </div>
+            <!--更新仓库列表提示-->
+            <div *ngIf="updateGithubMessage != null">
+              <br>
+              <ngb-alert [dismissible]="false" type="warning" style="text-align: center">
+                {{updateGithubMessage}}
+              </ngb-alert>
+            </div>
+            <hr>
+            <ul class="list-group" *ngFor="let repo of githubAccountResponse.githubRepos" style="text-align: left">
+              <label for="{{repo.id}}">
+                <li class="list-group-item">
+                  <input type="radio" [(ngModel)]="repoId"
+                         (click)="clearCheckedBranch()"
+                         id="{{repo.id}}" value="{{repo.id}}" name="repo">
+                  &nbsp;&nbsp;{{repo.login}}&nbsp;/&nbsp;{{repo.name}}
+                </li>
+              </label>
+            </ul>
+          </div>
+          <br>
+          <p style="text-align: left"><strong>&nbsp;选择触发分支：</strong></p>
+          <p style="text-align: left; margin-top: -15px" class="small">&nbsp;当代码仓库收到提交请求时，EasyCI 将自动触发构建</p>
+          <hr>
+          <div *ngFor="let repo of githubAccountResponse.githubRepos">
+            <div *ngIf="repo.id == repoId" class="row">
+              <div *ngFor="let branch of repo.branchs" style="margin-left: 20px">
+                <input type="checkbox" id="{{branch}}" value="{{branch}}"
+                       (click)="updateCheckedBranch($event.target.checked, $event.target.defaultValue)">
+                <label for="{{branch}}">{{branch}}</label>
+              </div>
+            </div>
+          </div>
+          <br>
+          <p style="text-align: left"><strong>&nbsp;选择项目开发平台：</strong></p>
+          <hr>
+          <div class="row">
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="radio" [(ngModel)]="platform" id="android" name="platform" value="Android">
+            <label for="android">&nbsp;Android</label>
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="radio" [(ngModel)]="platform" id="ios" name="platform" value="iOS" disabled="false">
+            <label for="ios">&nbsp;iOS</label>
+          </div>
+          <br>
+          <p style="text-align: left"><strong>&nbsp;选择项目构建环境：</strong></p>
+          <hr>
+          <div class="row">
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="radio" [(ngModel)]="version" id="java8" name="version" value="Java 8">
+            <label for="java8">&nbsp;Java 8</label>
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="radio" [(ngModel)]="version" id="java9" name="version" value="Java 9" disabled="false">
+            <label for="java9">&nbsp;Java 9</label>
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="radio" [(ngModel)]="version" id="xcode8" name="version" value="Xcode 8" disabled="false">
+            <label for="xcode8">&nbsp;Xcode 8</label>
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="radio" [(ngModel)]="version" id="xcode9" name="version" value="Xcode 9" disabled="false">
+            <label for="xcode9">&nbsp;Xcode 9</label>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="version != null">
+        <h2 style="margin-top: 60px;"><strong>③ -</strong>&nbsp;配置 Plugin</h2>
+        <p style="text-align: left"><strong>&nbsp;为 Flow 添加工作插件：</strong></p>
+        <ol class="breadcrumb">
+          <li style="line-height: 50px">O->
+            <p class="btn btn-secondary">Git Clone</p>
+          </li>
+          <li style="line-height: 50px">--->
+            <p class="btn btn-secondary">初始化环境</p>
+          </li>
+          <div *ngFor="let plugin of currentPlugins">
+            <li style="line-height: 50px">--->
+              <p class="btn btn-primary">{{plugin.fullName}} &nbsp;
+                <button class="btn btn-outline-dark btn-sm" style="padding: 0px;"
+                        (click)="removeOneOnCurrentPlugins(plugin)">X
+                </button>
+              </p>
+            </li>
+          </div>
+        </ol>
+        <ol class="breadcrumb" style="margin-bottom: -5px;">
+          <div *ngFor="let plugin of pluginsResponse.plugins">
+            <li style="line-height: 50px;">&nbsp;&nbsp;
+              <button class="btn btn-outline-primary" (click)="addOneOnCurrentPlugins(plugin)">{{plugin.fullName}}
+              </button>
+            </li>
+          </div>
+        </ol>
+        <hr class="my-0">
+        <p class="small">↑ 系统当前支持插件，点击添加到你的 Flow 中 ↑</p>
+        <br>
+        <p style="text-align: left"><strong>&nbsp;配置所需的环境变量：</strong></p>
+        <div *ngFor="let plugin of currentPlugins">
+          <div *ngFor="let pluginEnv of plugin.needEnv">
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text">{{pluginEnv.envName}}</span>
+              </div>
+              <input #env type="text" class="form-control"
+                     name="{{pluginEnv.envName}}" placeholder="{{pluginEnv.envDescription}}"
+                     (blur)="updatePluginEnv(pluginEnv.envName, env.value)">
+            </div>
+          </div>
+        </div>
+        <hr class="my-0">
+        <p class="small">↑ 当选择的插件需要配置环境变量时，他将显示在这里 ↑</p>
+      </div>
+      <!--创建Flow，Loading提示-->
+      <div *ngIf="creatingMessage != null">
+        <ngb-alert [dismissible]="false" type="warning" style="text-align: center">
+          <strong>{{creatingMessage}}</strong>
+        </ngb-alert>
+      </div>
+      <div style="margin-top: 20px">
+        <button class="btn btn-dark" (click)="goBack()">取消</button>
+        <button class="btn btn-success" *ngIf="version != null" (click)="createFlow()">创建 Flow</button>
+      </div>
+    </div>
+  </div>
+</div>

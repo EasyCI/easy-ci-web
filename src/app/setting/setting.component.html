@@ -1,0 +1,88 @@
+<app-header></app-header>
+<button class="btn btn-dark" (click)="goBack()"
+        style="position: fixed; z-index: 9999; margin-left: 10px; margin-top: 8px;">
+  <span class="oi oi-arrow-circle-left"></span><b> 返回&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b>
+</button>
+<!--第一个 jumbotron 用于铺个底-->
+<div class="jumbotron" style="margin-bottom: auto; height: 100%; width: 100%; position: absolute"></div>
+<div class="jumbotron" style="margin-bottom: auto; height: auto; width: 100%; position: absolute" align="center">
+  <!--异常提示-->
+  <div *ngIf="showMessage != null">
+    <ngb-alert [dismissible]="false" type="danger" style="text-align: center">
+      {{showMessage}}
+    </ngb-alert>
+  </div>
+  <!--Github 授权提示-->
+  <div *ngIf="beginAuth != null">
+    <ngb-alert [dismissible]="false" type="primary" style="text-align: center">
+      <h5>请在新页面中完成授权……</h5><br>
+      <p style="color: red;">如果未启动新窗口，请检查是否被浏览器拦截，并点击【重试】</p>
+      <button class="btn btn-secondary" (click)="goToAuthorize()">重试</button>
+      <button class="btn btn-success" (click)="getGithubAccount()">授权完成</button>
+    </ngb-alert>
+  </div>
+  <!--密码修改成功提示-->
+  <div *ngIf="user != null">
+    <ngb-alert [dismissible]="false" type="success" style="text-align: center">
+      <h5>密码修改成功，请重新登录……</h5>
+    </ngb-alert>
+  </div>
+  <div class="col-8">
+    <br><br>
+    <h2 style="margin-bottom: 20px;">个人设置</h2>
+    <ngb-tabset>
+      <ngb-tab>
+        <ng-template ngbTabTitle>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;●&nbsp;授权 Github&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</ng-template>
+        <ng-template ngbTabContent>
+          <!--用于加粗标签底线-->
+          <hr class="my-0">
+          <div *ngIf="githubAccountResponse == null" style="margin-top: 50px">
+            <h4>获取访问您 GitHub 的权限</h4>
+            <button class="btn btn-success btn-lg col-6" style="width: 100%; margin-top: 20px;"
+                    (click)="goToAuthorize()">去授权
+            </button>
+          </div>
+          <div *ngIf="githubAccountResponse != null" style="margin-top: 50px">
+            <h4>已授权的 Github 账户</h4>
+            <div class="card" style="width: 10rem; margin-top: 20px;">
+              <img class="card-img-top" style="width: 8rem; height: 8rem; margin-top: 1rem;"
+                   [src]="githubAccountResponse.githubAccount.avatarUrl" alt="GitHub Account Avatar">
+              <div class="card-body">
+                <p class="card-text"><b>{{githubAccountResponse.githubAccount.login}}</b></p>
+                <hr class="my-2">
+                <button class="btn btn-danger">取消授权</button>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab>
+        <ng-template ngbTabTitle>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;●&nbsp;修改密码&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</ng-template>
+        <ng-template ngbTabContent>
+          <!--用于加粗标签底线-->
+          <hr class="my-0">
+          <div class="col-6"
+               (keyup.enter)="changePassword(oldPassword.value, newPassword.value, againNewPassword.value)"
+               style="margin-top: 50px">
+            <div class="input-group mb-3">
+              <span class="input-group-text">旧密码</span>
+              <input #oldPassword type="password" class="form-control" placeholder="输入您的旧密码">
+            </div>
+            <hr>
+            <div class="input-group mb-3">
+              <span class="input-group-text">新密码</span>
+              <input #newPassword type="password" class="form-control" placeholder="输入您的新密码">
+            </div>
+            <div class="input-group mb-3">
+              <span class="input-group-text">再一次</span>
+              <input #againNewPassword type="password" class="form-control" placeholder="确认您的新密码">
+            </div>
+            <button class="btn btn-success btn-lg" style="width: 100%"
+                    (click)="changePassword(oldPassword.value, newPassword.value, againNewPassword.value)">保存
+            </button>
+          </div>
+        </ng-template>
+      </ngb-tab>
+    </ngb-tabset>
+  </div>
+</div>

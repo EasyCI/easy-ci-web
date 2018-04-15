@@ -1,0 +1,45 @@
+.flowDetail {
+  transition: all 0.2s; /*图片放大过程的时间*/
+}
+
+.flowDetail:hover {
+  transform: scale(1.03); /*鼠标经过图片放大的倍数*/
+}
+
+.flowPlatform {
+  opacity: 0.8;
+}
+
+.flowPlatform:hover {
+  opacity: 1;
+}
+
+.star {
+  position: relative;
+  display: inline-block;
+  font-size: 2rem;
+  color: #d3d3d3;
+}
+
+.full {
+  color: #ffb107;
+}
+
+.half {
+  position: absolute;
+  display: inline-block;
+  overflow: hidden;
+  color: #ffb107;
+}
+
+.helpImage {
+  transition: all 0.2s; /*图片放大过程的时间*/
+  width: 20rem;
+  height: 15rem;
+  background-color: white;
+  padding: 10px;
+}
+
+.helpImage:hover {
+  transform: scale(1.3); /*鼠标经过图片放大的倍数*/
+}

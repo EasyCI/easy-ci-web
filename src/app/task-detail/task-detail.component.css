@@ -1,0 +1,25 @@
+@keyframes dots {
+  50% {
+    transform: translateY(-.5rem);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.d {
+  display: flex;
+  font-weight: 900;
+  color: red;
+  animation: dots 1.2s ease-out infinite;
+}
+
+.d-2 {
+  color: green;
+  animation-delay: .4s;
+}
+
+.d-3 {
+  color: blue;
+  animation-delay: .8s;
+}
