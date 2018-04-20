@@ -6,7 +6,7 @@ import {CommonService} from '../core/service/common.service';
 import {FlowService} from '../core/service/flow.service';
 import {Flow} from '../core/domain/flow';
 import {FlowTasksComponent} from '../flow-tasks/flow-tasks.component';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, UrlSegment} from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -71,7 +71,8 @@ export class HeaderComponent implements OnInit {
     this.commonService.jumpTo(url);
 
     // 因为这个路由跳转到自身，所以需要强制刷新组件视图
-    if (this.route.component.toString().substring(9, 27) === 'FlowTasksComponent') {
+    const uslSegment: UrlSegment[] = this.route.snapshot.url;
+    if (uslSegment.length === 2 && uslSegment[0].path === 'flow' && uslSegment[1].path !== 'create') {
       this.flowTaskComponent.ngOnDestroy();
       this.flowTaskComponent.ngOnInit();
     }
